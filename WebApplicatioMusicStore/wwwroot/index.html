@@ -1,0 +1,51 @@
+﻿<!D!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/main.css" />
+ </head>
+<body>
+    <div class="center">
+        <nav>
+            <ul>
+                <li>
+                    <figure>
+                        <img src="images/logoMundoTotal.png" />
+                    </figure>
+                </li>
+                <li>
+                    <p>WEB SERVICE AUDIO STORE</p>
+                </li>
+                <li>
+                    <p>STATUS: <label>Online</label></p>
+                </li>
+                <li>
+                    <a id="swagger" href="/swagger/index.html" target="_blank">SWAGGER (DISABLE)</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <footer>
+        <p>Created by Edgar Gomez for Grupo Total 99 © 2023</p>
+    </footer>
+</body>
+</html>
+
+<script>
+
+    async function SwaggerAlive() {
+        const response = await fetch("/swagger/index.html");
+        const aLink = document.getElementById("swagger");
+
+        if (response.status == 200) {
+            aLink.innerHTML = "SWAGGER (ENABLE)";
+            aLink.href = "/swagger/index.html";
+        } else {
+            aLink.innerHTML = "SWAGGER (DISABLE)";
+            aLink.href = "void(0)";
+        }
+    }
+
+    SwaggerAlive();
+</script>
