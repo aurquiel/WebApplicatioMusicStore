@@ -77,7 +77,7 @@ namespace WebApplicatioMusicStore.Controllers
         }
 
         [HttpGet, Authorize(Roles = "Admin, Store")]
-        [Route("api/[controller]/DownloadAudio")]
+        [Route("api/[controller]/DownloadAudio/{audioName}")]
         public async Task<IActionResult> DownloadAudio(string audioName)
         {
                 var filePath = Path.Combine(_env.WebRootPath, FOLDER_AUDIO, audioName);
