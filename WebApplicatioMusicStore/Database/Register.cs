@@ -11,8 +11,8 @@ namespace WebApplicatioMusicStore.Database
 
         [Required]
         [ForeignKey("Id")]
-        public int UserId { get; set; }
-        public virtual User? Users { get; set; }
+        public int StoreId { get; set; }
+        public virtual Store? Stores { get; set; }
 
         [Required]
         public DateTime CreationDateTime { get; set; }

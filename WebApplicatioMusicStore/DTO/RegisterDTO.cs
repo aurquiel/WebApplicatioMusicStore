@@ -5,7 +5,7 @@ namespace WebApplicatioMusicStore.DTO
     public class RegisterDTO
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public int StoreId { get; set; }
         public DateTime CreationDateTime { get; set; }
 
         public RegisterDTO()
@@ -16,7 +16,7 @@ namespace WebApplicatioMusicStore.DTO
         public RegisterDTO(Register register)
         {
             this.Id = register.Id;
-            this.UserId = register.UserId;  
+            this.StoreId = register.StoreId;  
             this.CreationDateTime = register.CreationDateTime;
         }
 
@@ -42,7 +42,7 @@ namespace WebApplicatioMusicStore.DTO
             return new Register
             {
                 Id = registerDTO.Id,
-                UserId = registerDTO.UserId,
+                StoreId = registerDTO.StoreId,
                 CreationDateTime = registerDTO.CreationDateTime
             };
         }

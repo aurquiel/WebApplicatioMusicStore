@@ -541,6 +541,18 @@ namespace WebApplicatioMusicStore.Database
                     }
                 );
             });
+
+            modelBuilder.Entity<Register>(x =>
+            {
+                x.HasData(
+                    new Register
+                    {
+                        Id = 1,
+                        StoreId = 2,
+                        CreationDateTime = DateTime.Now
+                    }
+                );
+            });
         }
 
         public DbSet<Register> Registers { get; set; }

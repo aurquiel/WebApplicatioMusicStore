@@ -8,6 +8,6 @@ namespace WebApplicatioMusicStore.Operations
         Task<List<Register>> GetRegistersByDate(DateTime date);
 
         Task<bool> Insert(Register register);
-        Task<bool> DeleteAllUserId(int userId);
+        Task<bool> DeleteAllStoreId(int storeId);
     }
 }

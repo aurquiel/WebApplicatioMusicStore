@@ -70,12 +70,12 @@ namespace WebApplicatioMusicStore.Controllers
         }
 
         [HttpDelete(), Authorize(Roles = "Admin")]
-        [Route("api/[controller]/RegisterDelete")]
-        public async Task<GeneralAnswer> RegisterDelete(int userId)
+        [Route("api/[controller]/RegisterDelete/{storeId}")]
+        public async Task<GeneralAnswer> RegisterDelete(int storeId)
         {
             try
             {
-                if (await _registerOP.DeleteAllUserId(userId))
+                if (await _registerOP.DeleteAllStoreId(storeId))
                 {
                     return new GeneralAnswer(true, "Exitoso: Registros.", null);
                 }

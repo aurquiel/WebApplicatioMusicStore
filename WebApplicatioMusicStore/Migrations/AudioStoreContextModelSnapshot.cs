@@ -33,14 +33,22 @@ namespace WebApplicatioMusicStore.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Registers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7658),
+                            StoreId = 2
+                        });
                 });
 
             modelBuilder.Entity("WebApplicatioMusicStore.Database.Store", b =>
@@ -68,427 +76,427 @@ namespace WebApplicatioMusicStore.Migrations
                         {
                             Id = 1,
                             Code = "0000",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6570)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7106)
                         },
                         new
                         {
                             Id = 2,
                             Code = "1001",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6593)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7118)
                         },
                         new
                         {
                             Id = 3,
                             Code = "1002",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6594)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7119)
                         },
                         new
                         {
                             Id = 4,
                             Code = "1003",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6595)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7120)
                         },
                         new
                         {
                             Id = 5,
                             Code = "1004",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6596)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7121)
                         },
                         new
                         {
                             Id = 6,
                             Code = "1005",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6597)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7122)
                         },
                         new
                         {
                             Id = 7,
                             Code = "1006",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6598)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7123)
                         },
                         new
                         {
                             Id = 8,
                             Code = "1007",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6599)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7124)
                         },
                         new
                         {
                             Id = 9,
                             Code = "1008",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6600)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7125)
                         },
                         new
                         {
                             Id = 10,
                             Code = "1009",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6601)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7126)
                         },
                         new
                         {
                             Id = 11,
                             Code = "1010",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6602)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7127)
                         },
                         new
                         {
                             Id = 12,
                             Code = "1011",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6603)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7128)
                         },
                         new
                         {
                             Id = 13,
                             Code = "1012",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6604)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7129)
                         },
                         new
                         {
                             Id = 14,
                             Code = "1013",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6605)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7130)
                         },
                         new
                         {
                             Id = 15,
                             Code = "1014",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6606)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7131)
                         },
                         new
                         {
                             Id = 16,
                             Code = "1016",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6606)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7132)
                         },
                         new
                         {
                             Id = 17,
                             Code = "1018",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6607)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7133)
                         },
                         new
                         {
                             Id = 18,
                             Code = "1019",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6608)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7134)
                         },
                         new
                         {
                             Id = 19,
                             Code = "1020",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6609)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7135)
                         },
                         new
                         {
                             Id = 20,
                             Code = "1021",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6610)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7136)
                         },
                         new
                         {
                             Id = 21,
                             Code = "1022",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6611)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7136)
                         },
                         new
                         {
                             Id = 22,
                             Code = "1023",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6612)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7138)
                         },
                         new
                         {
                             Id = 23,
                             Code = "1024",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6613)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7138)
                         },
                         new
                         {
                             Id = 24,
                             Code = "1026",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6614)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7139)
                         },
                         new
                         {
                             Id = 25,
                             Code = "1027",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6615)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7140)
                         },
                         new
                         {
                             Id = 26,
                             Code = "1028",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6616)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7141)
                         },
                         new
                         {
                             Id = 27,
                             Code = "1029",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6617)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7142)
                         },
                         new
                         {
                             Id = 28,
                             Code = "1030",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6618)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7143)
                         },
                         new
                         {
                             Id = 29,
                             Code = "1031",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6619)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7144)
                         },
                         new
                         {
                             Id = 30,
                             Code = "1032",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6619)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7145)
                         },
                         new
                         {
                             Id = 31,
                             Code = "1033",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6620)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7146)
                         },
                         new
                         {
                             Id = 32,
                             Code = "1034",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6621)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7147)
                         },
                         new
                         {
                             Id = 33,
                             Code = "1035",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6622)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7148)
                         },
                         new
                         {
                             Id = 34,
                             Code = "1036",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6623)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7149)
                         },
                         new
                         {
                             Id = 35,
                             Code = "1037",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6624)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7150)
                         },
                         new
                         {
                             Id = 36,
                             Code = "1038",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6625)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7151)
                         },
                         new
                         {
                             Id = 37,
                             Code = "1041",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6626)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7152)
                         },
                         new
                         {
                             Id = 38,
                             Code = "1042",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6627)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7153)
                         },
                         new
                         {
                             Id = 39,
                             Code = "1043",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6628)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7154)
                         },
                         new
                         {
                             Id = 40,
                             Code = "1045",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6629)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7155)
                         },
                         new
                         {
                             Id = 41,
                             Code = "1046",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6630)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7156)
                         },
                         new
                         {
                             Id = 42,
                             Code = "1047",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6631)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7157)
                         },
                         new
                         {
                             Id = 43,
                             Code = "1048",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6632)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7158)
                         },
                         new
                         {
                             Id = 44,
                             Code = "1050",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6633)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7158)
                         },
                         new
                         {
                             Id = 45,
                             Code = "1051",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6633)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7159)
                         },
                         new
                         {
                             Id = 46,
                             Code = "1052",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6634)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7160)
                         },
                         new
                         {
                             Id = 47,
                             Code = "1053",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6635)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7161)
                         },
                         new
                         {
                             Id = 48,
                             Code = "1054",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6636)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7162)
                         },
                         new
                         {
                             Id = 49,
                             Code = "1055",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6637)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7163)
                         },
                         new
                         {
                             Id = 50,
                             Code = "1056",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6638)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7164)
                         },
                         new
                         {
                             Id = 51,
                             Code = "1057",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6639)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7165)
                         },
                         new
                         {
                             Id = 52,
                             Code = "1058",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6640)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7166)
                         },
                         new
                         {
                             Id = 53,
                             Code = "1059",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6641)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7167)
                         },
                         new
                         {
                             Id = 54,
                             Code = "1060",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6642)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7168)
                         },
                         new
                         {
                             Id = 55,
                             Code = "1061",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6643)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7169)
                         },
                         new
                         {
                             Id = 56,
                             Code = "1062",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6644)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7171)
                         },
                         new
                         {
                             Id = 57,
                             Code = "1063",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6645)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7172)
                         },
                         new
                         {
                             Id = 58,
                             Code = "1064",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6645)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7172)
                         },
                         new
                         {
                             Id = 59,
                             Code = "1065",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6646)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7173)
                         },
                         new
                         {
                             Id = 60,
                             Code = "1066",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6647)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7174)
                         },
                         new
                         {
                             Id = 61,
                             Code = "1067",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6648)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7175)
                         },
                         new
                         {
                             Id = 62,
                             Code = "1068",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6651)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7176)
                         },
                         new
                         {
                             Id = 63,
                             Code = "1072",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6652)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7177)
                         },
                         new
                         {
                             Id = 64,
                             Code = "1073",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6652)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7179)
                         },
                         new
                         {
                             Id = 65,
                             Code = "1075",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6653)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7221)
                         },
                         new
                         {
                             Id = 66,
                             Code = "1078",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6654)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7223)
                         },
                         new
                         {
                             Id = 67,
                             Code = "1081",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6655)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7224)
                         },
                         new
                         {
                             Id = 68,
                             Code = "8015",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6656)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7225)
                         },
                         new
                         {
                             Id = 69,
                             Code = "9039",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6657)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7226)
                         },
                         new
                         {
                             Id = 70,
                             Code = "9040",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6658)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7227)
                         },
                         new
                         {
                             Id = 71,
                             Code = "9044",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(6659)
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7228)
                         });
                 });
 
@@ -532,7 +540,7 @@ namespace WebApplicatioMusicStore.Migrations
                         {
                             Id = 1,
                             Alias = "egomez",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(7103),
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7609),
                             Password = "09f2c49baa326fdc1a1fcd95934bc9e18e351263a4c2ca862f5abe9c83ec8f87",
                             Rol = "Admin",
                             StoreId = 1
@@ -541,7 +549,7 @@ namespace WebApplicatioMusicStore.Migrations
                         {
                             Id = 2,
                             Alias = "ag01",
-                            CreationDateTime = new DateTime(2023, 7, 12, 12, 7, 42, 922, DateTimeKind.Local).AddTicks(7172),
+                            CreationDateTime = new DateTime(2023, 7, 18, 10, 27, 3, 24, DateTimeKind.Local).AddTicks(7638),
                             Password = "09f2c49baa326fdc1a1fcd95934bc9e18e351263a4c2ca862f5abe9c83ec8f87",
                             Rol = "Store",
                             StoreId = 2
@@ -550,13 +558,13 @@ namespace WebApplicatioMusicStore.Migrations
 
             modelBuilder.Entity("WebApplicatioMusicStore.Database.Register", b =>
                 {
-                    b.HasOne("WebApplicatioMusicStore.Database.User", "Users")
+                    b.HasOne("WebApplicatioMusicStore.Database.Store", "Stores")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Users");
+                    b.Navigation("Stores");
                 });
 
             modelBuilder.Entity("WebApplicatioMusicStore.Database.User", b =>
