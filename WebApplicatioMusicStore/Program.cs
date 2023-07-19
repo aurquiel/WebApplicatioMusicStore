@@ -15,8 +15,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<AudioStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQL_SERVER")));
+builder.Services.AddDbContext<AudioStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddTransient<IUserOP, UserOP>(); 
 builder.Services.AddTransient<IStoreOP, StoreOP>();  
 builder.Services.AddTransient<IRegisterOP, RegisterOP>();  
