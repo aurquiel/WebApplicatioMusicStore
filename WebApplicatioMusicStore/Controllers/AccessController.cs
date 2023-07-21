@@ -44,7 +44,7 @@ namespace WebApplicatioMusicStore.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<GeneralAnswer> UserLoginToken(UserLoginToken user)
+        public async Task<GeneralAnswer<UserAccessDTO>> UserLoginToken(UserLoginToken user)
         {
             try
             {
@@ -56,16 +56,16 @@ namespace WebApplicatioMusicStore.Controllers
                     var userDB = UserDTO.FromDBToDTO(userResult);
                     var token = GenerateToken(userDB);
 
-                    return new GeneralAnswer(true, "Exitoso: usuario y token obtenidos con exito.", new { User = userDB, Token = token });
+                    return new GeneralAnswer<UserAccessDTO>(true, "Exitoso: usuario y token obtenidos con exito.", new UserAccessDTO { User = userDB, Token = token });
                 }
                 else
                 {
-                    return new GeneralAnswer(false, "Error: usuario sin autorizacion.", new { User = new UserDTO(), Token = string.Empty });
+                    return new GeneralAnswer<UserAccessDTO>(false, "Error: usuario sin autorizacion.", new UserAccessDTO { User = new UserDTO(), Token = string.Empty });
                 }
             }
             catch (Exception ex)
             {
-                return new GeneralAnswer(false, "Error al obtener usuario y token, Excepcion: " + ex.Message, new { User = new UserDTO(), Token = string.Empty });
+                return new GeneralAnswer<UserAccessDTO>(false, "Error al obtener usuario y token, Excepcion: " + ex.Message, new UserAccessDTO { User = new UserDTO(), Token = string.Empty });
             }
 
         }

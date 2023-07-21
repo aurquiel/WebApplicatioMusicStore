@@ -1,12 +1,13 @@
 ﻿using WebApplicatioMusicStore.Database;
+using WebApplicatioMusicStore.Models;
 
 namespace WebApplicatioMusicStore.Operations
 {
     public interface IStoreOP
     {
         Task<List<Store>> GetAll();
-        Task<bool> Insert(Store store);
-        Task<bool> Update(Store store);
+        Task<GeneralAnswer<object>> Insert(Store store);
+        Task<GeneralAnswer<string>> Update(Store store);
         Task<bool> Delete(Store store);
     }
 }

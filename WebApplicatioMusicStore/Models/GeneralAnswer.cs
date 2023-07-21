@@ -1,12 +1,12 @@
 ﻿namespace WebApplicatioMusicStore.Models
 {
-    public class GeneralAnswer
+    public class GeneralAnswer<T> where T : class
     {
         public bool Status { get; set; }
         public string StatusMessage { get; set; }
-        public object Data { get; set; }
+        public T Data { get; set; }
 
-        public GeneralAnswer(bool status, string statusMessage, object data)
+        public GeneralAnswer(bool status, string statusMessage, T data)
         {
             Status = status;
             StatusMessage = statusMessage;

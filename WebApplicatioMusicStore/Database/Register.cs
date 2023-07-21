@@ -15,6 +15,10 @@ namespace WebApplicatioMusicStore.Database
         public virtual Store? Stores { get; set; }
 
         [Required]
+        [StringLength(1000)]
+        public string? Operation { get; set; }
+
+        [Required]
         public DateTime CreationDateTime { get; set; }
     }
 }

@@ -14,11 +14,11 @@ namespace WebApplicatioMusicStore.Database
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AudioStore;" +
-        //        "Integrated Security=True;TrustServerCertificate=True");
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AudioStore;" +
+                "Integrated Security=True;TrustServerCertificate=True");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -533,22 +533,19 @@ namespace WebApplicatioMusicStore.Database
                     new User
                     {
                         Id = 2,
+                        Alias = "rnajm",
+                        Password = Hash256.HashOfUserPassword("1234"),
+                        StoreId = 1,
+                        Rol = "Admin",
+                        CreationDateTime = DateTime.Now
+                    },
+                    new User
+                    {
+                        Id = 3,
                         Alias = "ag01",
-                        Password = Hash256.HashOfUserPassword("54001990"),
+                        Password = Hash256.HashOfUserPassword("1234"),
                         StoreId = 2,
                         Rol = "Store",
-                        CreationDateTime = DateTime.Now
-                    }
-                );
-            });
-
-            modelBuilder.Entity<Register>(x =>
-            {
-                x.HasData(
-                    new Register
-                    {
-                        Id = 1,
-                        StoreId = 2,
                         CreationDateTime = DateTime.Now
                     }
                 );
