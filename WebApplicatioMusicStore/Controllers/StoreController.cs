@@ -19,7 +19,7 @@ namespace WebApplicatioMusicStore.Controllers
             _filesHandler = new FileHandler(env);
         }
 
-        [HttpGet(), Authorize(Roles = "Admin")]
+        [HttpGet(), Authorize(Roles = "Admin, Store")]
         [Route("api/[controller]/StoreGetAll")]
         public async Task<GeneralAnswer<List<StoreDTO>>> StoreGetAll()
         {
