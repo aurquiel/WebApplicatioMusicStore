@@ -45,38 +45,33 @@ namespace WebApplicatioMusicStore.FilesHandlers
         }
 
 
-        public async Task AudioDeleteAsync(List<string> audioNamesList)
+        public async Task AudioDeleteAsync(string audioName)
         {
             try
             {
                 await semaphore.WaitAsync();
                 var audioListStoreFiles = Directory.GetFiles(FOLDER_AUDIO_LIST_STORE);
 
-                foreach (var audioName in audioNamesList)
+                File.Delete(Path.Combine(FOLDER_AUDIO, audioName));
+
+                foreach (var audioList in Directory.GetFiles(FOLDER_AUDIO_LIST_STORE))
                 {
-                    File.Delete(Path.Combine(FOLDER_AUDIO, audioName));
-
-                    foreach (var audioListStore in audioListStoreFiles)
+                    var lines = (await File.ReadAllLinesAsync(audioList, Encoding.UTF8)).ToList();
+                    lines.RemoveAll(x => x == String.Empty);
+                    List<string> listOfSongsThatExist = new List<string>();
+                    foreach (var audio in Directory.GetFiles(FOLDER_AUDIO))
                     {
-                        string tempFile = Path.GetTempFileName();
-
-                        using (var sr = new StreamReader(audioListStore))
-                        using (var sw = new StreamWriter(tempFile))
+                        foreach (var line in lines)
                         {
-                            string line;
-
-                            while ((line = sr.ReadLine()) != null)
+                            if (Path.GetFileName(audio) == line)
                             {
-                                if (line != audioName)
-                                {
-                                    sw.WriteLine(line);
-                                }
+                                listOfSongsThatExist.Add(line);
                             }
                         }
-
-                        File.Delete(audioListStore);
-                        File.Move(tempFile, audioListStore);
                     }
+                    string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
+                    await File.WriteAllTextAsync(audioList, listOfAudioSynchronized, Encoding.UTF8);
+
                 }
 
                 semaphore.Release();
@@ -90,9 +85,8 @@ namespace WebApplicatioMusicStore.FilesHandlers
 
         private async Task<bool> SongAlreaadyExits(string nameSong)
         {
-            string route = Path.Combine(_env.WebRootPath, FOLDER_AUDIO);
-            string[] lines = await File.ReadAllLinesAsync(route, Encoding.UTF8);
-            if (lines.Contains(nameSong))
+            var audios = Directory.GetFiles(FOLDER_AUDIO).Select(x => Path.GetFileName(x)).ToList();
+            if (audios.Contains(nameSong))
             {
                 return true;
             }
@@ -102,7 +96,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
 
         public async Task<string> GetAudioListAsync()
         {
-            return await Task.Run(() => String.Join("\r\n", Directory.GetFiles(FOLDER_AUDIO)));
+            return await Task.Run(() => String.Join("\r\n", Directory.GetFiles(FOLDER_AUDIO).Select(x => Path.GetFileName(x))));
         }
 
         public async Task<string> GetAudioListStoreAsync(string storeCode)
@@ -121,7 +115,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
             }
         }
 
-        public async Task SynchronizeAudioListStoreAsync(string audioList, string storeCode)
+        public async Task<string> SynchronizeAudioListStoreAsync(string audioList, string storeCode)
         {
             try
             {
@@ -142,7 +136,42 @@ namespace WebApplicatioMusicStore.FilesHandlers
                     }
                 }
 
-                await File.WriteAllTextAsync(routeAudioList, String.Join("\r\n", listOfSongsThatExist), Encoding.UTF8);
+                string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
+                await File.WriteAllTextAsync(routeAudioList, listOfAudioSynchronized , Encoding.UTF8);
+                semaphore.Release();
+                return listOfAudioSynchronized;
+            }
+            catch
+            {
+                semaphore.Release();
+                throw;
+            }
+        }
+
+        public async Task SynchronizeAudioListAllStoreAsync()
+        {
+            try
+            {
+                await semaphore.WaitAsync();
+
+                foreach (var audioList in Directory.GetFiles(FOLDER_AUDIO_LIST_STORE))
+                {
+                    var lines = (await File.ReadAllLinesAsync(audioList, Encoding.UTF8)).ToList();    
+                    lines.RemoveAll(x => x == String.Empty);
+                    List<string> listOfSongsThatExist = new List<string>();
+                    foreach (var audio in Directory.GetFiles(FOLDER_AUDIO))
+                    {
+                        foreach(var line in lines)
+                        {
+                            if (Path.GetFileName(audio) == line)
+                            {
+                                listOfSongsThatExist.Add(line);
+                            }
+                        }
+                    }
+                    string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
+                    await File.WriteAllTextAsync(audioList, listOfAudioSynchronized, Encoding.UTF8);
+                }
                 semaphore.Release();
             }
             catch

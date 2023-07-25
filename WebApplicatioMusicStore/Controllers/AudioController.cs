@@ -2,6 +2,7 @@
 using WebApplicatioMusicStore.Models;
 using WebApplicatioMusicStore.FilesHandlers;
 using Microsoft.AspNetCore.Authorization;
+using WebApplicationMusicStore.Models;
 
 namespace WebApplicatioMusicStore.Controllers
 {
@@ -13,13 +14,13 @@ namespace WebApplicatioMusicStore.Controllers
 
         public AudioController(IWebHostEnvironment env)
         {
-            _env = env; 
+            _env = env;
             _fileHandler = new FileHandler(_env);
         }
 
         [HttpGet, Authorize(Roles = "Admin")]
-        [Route("api/[controller]/DownloadAudiosList")]
-        public async Task<GeneralAnswer<string>> DownloadAudiosList()
+        [Route("api/[controller]/DownloadAudioListServer")]
+        public async Task<GeneralAnswer<string>> DownloadAudiosListServer()
         {
             try
             {
@@ -46,17 +47,31 @@ namespace WebApplicatioMusicStore.Controllers
         }
 
         [HttpPost, Authorize(Roles = "Admin")]
-        [Route("api/[controller]/SynchronizeAudioList")]
-        public async Task<GeneralAnswer<object>> SynchronizeAudioList(string audioList, string storeCode)
+        [Route("api/[controller]/SynchronizeAudioListStore")]
+        public async Task<GeneralAnswer<string>> SynchronizeAudioListStore(SynchronizeAudioListStoreInfo synchronizeAudioListStoreInfo)
         {
             try
             {
-                await _fileHandler.SynchronizeAudioListStoreAsync(audioList, storeCode);
-                return new GeneralAnswer<object>(true, "Exitosa: Sincronizacion de Archivo y canciones.", null);
+                return new GeneralAnswer<string>(true, $"Lista de audio tienda: {synchronizeAudioListStoreInfo.storeCode} sincronizada.", await _fileHandler.SynchronizeAudioListStoreAsync(synchronizeAudioListStoreInfo.audioList, synchronizeAudioListStoreInfo.storeCode));
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-                return new GeneralAnswer<object>(false, "Error webservice SynchronizeAudioList, Excepcion: " + ex.Message, null);
+                return new GeneralAnswer<string>(false, "Error webservice SynchronizeAudioListStore, Excepcion: " + ex.Message, null);
+            }
+        }
+
+        [HttpPost, Authorize(Roles = "Admin")]
+        [Route("api/[controller]/SynchronizeAudioListAllStore")]
+        public async Task<GeneralAnswer<object>> SynchronizeAudioListAllStore()
+        {
+            try
+            {
+                await _fileHandler.SynchronizeAudioListAllStoreAsync();
+                return new GeneralAnswer<object>(true, "Sincronizacion de lista de audio de las tiendas.", null);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralAnswer<object>(false, "Error webservice SynchronizeAudioListAllStore, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -67,32 +82,32 @@ namespace WebApplicatioMusicStore.Controllers
             try
             {
                 var result = await _fileHandler.AudioSaveAsync(file);
-                if(result.Item1 == false)
+                if (result.Item1 == false)
                 {
                     return new GeneralAnswer<object>(result.Item1, result.Item2, null);
                 }
                 return new GeneralAnswer<object>(result.Item1, result.Item2, null);
             }
-            catch(Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 return new GeneralAnswer<object>(false, "Error webservice UploadAudio, Excepcion: " + ex.Message, null);
             }
         }
 
         [HttpGet, Authorize(Roles = "Admin, Store")]
-        [Route("api/[controller]/DownloadAudio")]
+        [Route("api/[controller]/DownloadAudio/{audioName}")]
         public async Task<IActionResult> DownloadAudio(string audioName)
         {
             return File(await _fileHandler.AudioDownloadGetBytesAsync(audioName), "application/octet-stream", audioName);
         }
 
         [HttpDelete, Authorize(Roles = "Admin")]
-        [Route("api/[controller]/DeleteAudios")]
-        public async Task<GeneralAnswer<object>> DeleteAudios(List<string> audioNamesList)
+        [Route("api/[controller]/DeleteAudio")]
+        public async Task<GeneralAnswer<object>> DeleteAudio([FromBody] string audioName)
         {
             try
             {
-                await _fileHandler.AudioDeleteAsync(audioNamesList);
+                await _fileHandler.AudioDeleteAsync(audioName);
                 return new GeneralAnswer<object>(true, "Archivos de audio eliminados.", null);
             }
             catch (Exception ex)
