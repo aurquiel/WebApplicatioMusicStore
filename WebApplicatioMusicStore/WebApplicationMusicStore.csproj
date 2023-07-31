@@ -7,6 +7,87 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="App_Data\audioList\audioList1001.txt" />
+    <Content Include="App_Data\audioList\audioList1002.txt" />
+    <Content Include="App_Data\audioList\audioList1003.txt" />
+    <Content Include="App_Data\audioList\audioList1004.txt" />
+    <Content Include="App_Data\audioList\audioList1005.txt" />
+    <Content Include="App_Data\audioList\audioList1006.txt" />
+    <Content Include="App_Data\audioList\audioList1007.txt" />
+    <Content Include="App_Data\audioList\audioList1008.txt" />
+    <Content Include="App_Data\audioList\audioList1009.txt" />
+    <Content Include="App_Data\audioList\audioList1010.txt" />
+    <Content Include="App_Data\audioList\audioList1011.txt" />
+    <Content Include="App_Data\audioList\audioList1012.txt" />
+    <Content Include="App_Data\audioList\audioList1013.txt" />
+    <Content Include="App_Data\audioList\audioList1014.txt" />
+    <Content Include="App_Data\audioList\audioList1016.txt" />
+    <Content Include="App_Data\audioList\audioList1018.txt" />
+    <Content Include="App_Data\audioList\audioList1019.txt" />
+    <Content Include="App_Data\audioList\audioList1020.txt" />
+    <Content Include="App_Data\audioList\audioList1021.txt" />
+    <Content Include="App_Data\audioList\audioList1022.txt" />
+    <Content Include="App_Data\audioList\audioList1023.txt" />
+    <Content Include="App_Data\audioList\audioList1024.txt" />
+    <Content Include="App_Data\audioList\audioList1026.txt" />
+    <Content Include="App_Data\audioList\audioList1027.txt" />
+    <Content Include="App_Data\audioList\audioList1028.txt" />
+    <Content Include="App_Data\audioList\audioList1029.txt" />
+    <Content Include="App_Data\audioList\audioList1030.txt" />
+    <Content Include="App_Data\audioList\audioList1031.txt" />
+    <Content Include="App_Data\audioList\audioList1032.txt" />
+    <Content Include="App_Data\audioList\audioList1033.txt" />
+    <Content Include="App_Data\audioList\audioList1034.txt" />
+    <Content Include="App_Data\audioList\audioList1035.txt" />
+    <Content Include="App_Data\audioList\audioList1036.txt" />
+    <Content Include="App_Data\audioList\audioList1037.txt" />
+    <Content Include="App_Data\audioList\audioList1038.txt" />
+    <Content Include="App_Data\audioList\audioList1041.txt" />
+    <Content Include="App_Data\audioList\audioList1042.txt" />
+    <Content Include="App_Data\audioList\audioList1043.txt" />
+    <Content Include="App_Data\audioList\audioList1045.txt" />
+    <Content Include="App_Data\audioList\audioList1046.txt" />
+    <Content Include="App_Data\audioList\audioList1047.txt" />
+    <Content Include="App_Data\audioList\audioList1048.txt" />
+    <Content Include="App_Data\audioList\audioList1050.txt" />
+    <Content Include="App_Data\audioList\audioList1051.txt" />
+    <Content Include="App_Data\audioList\audioList1052.txt" />
+    <Content Include="App_Data\audioList\audioList1053.txt" />
+    <Content Include="App_Data\audioList\audioList1054.txt" />
+    <Content Include="App_Data\audioList\audioList1055.txt" />
+    <Content Include="App_Data\audioList\audioList1056.txt" />
+    <Content Include="App_Data\audioList\audioList1057.txt" />
+    <Content Include="App_Data\audioList\audioList1058.txt" />
+    <Content Include="App_Data\audioList\audioList1059.txt" />
+    <Content Include="App_Data\audioList\audioList1060.txt" />
+    <Content Include="App_Data\audioList\audioList1061.txt" />
+    <Content Include="App_Data\audioList\audioList1062.txt" />
+    <Content Include="App_Data\audioList\audioList1063.txt" />
+    <Content Include="App_Data\audioList\audioList1064.txt" />
+    <Content Include="App_Data\audioList\audioList1065.txt" />
+    <Content Include="App_Data\audioList\audioList1066.txt" />
+    <Content Include="App_Data\audioList\audioList1067.txt" />
+    <Content Include="App_Data\audioList\audioList1068.txt" />
+    <Content Include="App_Data\audioList\audioList1072.txt" />
+    <Content Include="App_Data\audioList\audioList1073.txt" />
+    <Content Include="App_Data\audioList\audioList1075.txt" />
+    <Content Include="App_Data\audioList\audioList1078.txt" />
+    <Content Include="App_Data\audioList\audioList1081.txt" />
+    <Content Include="App_Data\audioList\audioList8015.txt" />
+    <Content Include="App_Data\audioList\audioList9039.txt" />
+    <Content Include="App_Data\audioList\audioList9040.txt" />
+    <Content Include="App_Data\audioList\audioList9044.txt" />
+    <Content Include="App_Data\audio\abstract-world-127012.mp3" />
+    <Content Include="App_Data\audio\coding-night-112186.mp3" />
+    <Content Include="App_Data\audio\flaing-piano-main-8783.mp3" />
+    <Content Include="App_Data\audio\jazz-cafe-112190.mp3" />
+    <Content Include="App_Data\audio\lofi-study-112191.mp3" />
+    <Content Include="App_Data\audio\phantom-116107.mp3" />
+    <Content Include="App_Data\audio\tense-detective-looped-drone-10054.mp3" />
+    <Content Include="App_Data\audio\war-is-coming-103662.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.20">
@@ -28,7 +109,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\audio\" />
+    <Folder Include="App_Data\audio\" />
   </ItemGroup>
 
 </Project>

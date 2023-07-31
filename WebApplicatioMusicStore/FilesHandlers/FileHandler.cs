@@ -13,8 +13,8 @@ namespace WebApplicatioMusicStore.FilesHandlers
         public FileHandler(IWebHostEnvironment env)
         {
             this._env = env;
-            FOLDER_AUDIO = Path.Combine(_env.WebRootPath, $"assets\\audio\\");
-            FOLDER_AUDIO_LIST_STORE = Path.Combine(_env.WebRootPath, $"assets\\audioList\\");
+            FOLDER_AUDIO = Path.Combine(_env.ContentRootPath, $"App_Data\\audio\\");
+            FOLDER_AUDIO_LIST_STORE = Path.Combine(_env.ContentRootPath, $"App_Data\\audioList\\");
         }
 
         public async Task<(bool, string)> AudioSaveAsync(IFormFile file)
