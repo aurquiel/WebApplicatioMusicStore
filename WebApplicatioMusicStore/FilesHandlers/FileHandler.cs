@@ -27,7 +27,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
 
             if(DirSize(new DirectoryInfo(FOLDER_AUDIO)) + file.Length > MAX_SIZE_BYTES)
             {
-                return (false, "Error: Capacidad maxima de 500 Mb alcanzada, elimine archivos de audio para subir nuevos..");
+                return (false, "Error: Capacidad maxima de 500 Mb alcanzada, elimine archivos de audio para subir nuevos.");
             }
 
             string fileRoute = Path.Combine(FOLDER_AUDIO, $"{file.FileName}");
@@ -205,9 +205,50 @@ namespace WebApplicatioMusicStore.FilesHandlers
             }
         }
 
-        public void RenameAudioListStoreFile(string oldFileName, string newFileName)
+        public async Task RenameAudioListStoreFile(string oldFileName, string newFileName)
         {
-            File.Move(Path.Combine(FOLDER_AUDIO_LIST_STORE, oldFileName), Path.Combine(FOLDER_AUDIO_LIST_STORE, newFileName)); 
+            try
+            {
+                await semaphore.WaitAsync();
+                File.Move(Path.Combine(FOLDER_AUDIO_LIST_STORE, oldFileName), Path.Combine(FOLDER_AUDIO_LIST_STORE, newFileName));
+                semaphore.Release();
+            }
+            catch
+            {
+                semaphore.Release();
+                throw;
+            }
+        }
+
+        public async Task CreateAudioListStore(string storeCode)
+        {
+            try
+            {
+                await semaphore.WaitAsync();
+                var s = File.CreateText(Path.Combine(FOLDER_AUDIO_LIST_STORE, "audioList" + storeCode + ".txt"));
+                s.Close();  
+                semaphore.Release();
+            }
+            catch
+            {
+                semaphore.Release();
+                throw;
+            }
+        }
+
+        public async Task DeleteAudioListStore(string storeCode)
+        {
+            try
+            {
+                await semaphore.WaitAsync();
+                File.Delete(Path.Combine(FOLDER_AUDIO_LIST_STORE, "audioList" + storeCode + ".txt"));
+                semaphore.Release();
+            }
+            catch
+            {
+                semaphore.Release();
+                throw;
+            }
         }
     }
 }

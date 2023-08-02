@@ -43,6 +43,7 @@ namespace WebApplicatioMusicStore.Controllers
                 var result = await _storeOP.Insert(StoreDTO.FromDTOToDB(storeDTO));
                 if (result.Status)
                 {
+                    await _filesHandler.CreateAudioListStore(storeDTO.Code);
                     return new GeneralAnswer<object>(true, "Exitoso: Tienda creada.", null);
                 }
                 else
@@ -87,6 +88,7 @@ namespace WebApplicatioMusicStore.Controllers
             {
                 if (await _storeOP.Delete(StoreDTO.FromDTOToDB(storeDTO)))
                 {
+                    await _filesHandler.DeleteAudioListStore(storeDTO.Code);
                     return new GeneralAnswer<object>(true, "Exitoso: Tienda eliminada.", null);
                 }
                 else
