@@ -6,6 +6,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
     {
         public readonly string FOLDER_AUDIO;
         public readonly string FOLDER_AUDIO_LIST_STORE;
+        public readonly long MAX_SIZE_BYTES = 500000000; //500 Mb
 
         IWebHostEnvironment _env;
         private static SemaphoreSlim semaphore = new SemaphoreSlim(1);
@@ -24,6 +25,11 @@ namespace WebApplicatioMusicStore.FilesHandlers
                 return (false, "Error: Audio ya existen.");
             }
 
+            if(DirSize(new DirectoryInfo(FOLDER_AUDIO)) + file.Length > MAX_SIZE_BYTES)
+            {
+                return (false, "Error: Capacidad maxima de 500 Mb alcanzada, elimine archivos de audio para subir nuevos..");
+            }
+
             string fileRoute = Path.Combine(FOLDER_AUDIO, $"{file.FileName}");
 
             using (FileStream fs = File.Create(fileRoute))
@@ -32,6 +38,24 @@ namespace WebApplicatioMusicStore.FilesHandlers
             }
 
             return (true, "Extioso: Archivo de audio añadido.");
+        }
+
+        private long DirSize(DirectoryInfo d)
+        {
+            long size = 0;
+            // Add file sizes.
+            FileInfo[] fis = d.GetFiles();
+            foreach (FileInfo fi in fis)
+            {
+                size += fi.Length;
+            }
+            // Add subdirectory sizes.
+            DirectoryInfo[] dis = d.GetDirectories();
+            foreach (DirectoryInfo di in dis)
+            {
+                size += DirSize(di);
+            }
+            return size;
         }
 
         public async Task<byte[]> AudioDownloadGetBytesAsync(string audioName)
