@@ -82,10 +82,6 @@ namespace WebApplicatioMusicStore.Controllers
             try
             {
                 var result = await _fileHandler.AudioSaveAsync(file);
-                if (result.Item1 == false)
-                {
-                    return new GeneralAnswer<object>(result.Item1, result.Item2, null);
-                }
                 return new GeneralAnswer<object>(result.Item1, result.Item2, null);
             }
             catch (Exception ex)

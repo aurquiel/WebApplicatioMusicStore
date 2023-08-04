@@ -16,7 +16,7 @@ namespace WebApplicatioMusicStore.Operations
 
         public async Task<List<Store>> GetAll()
         {
-            return await _db.Stores.ToListAsync();
+            return await _db.Stores.OrderBy(x => x.Code).ToListAsync();
         }
 
         public async Task<GeneralAnswer<object>> Insert(Store store)

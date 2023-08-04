@@ -29,7 +29,7 @@ namespace WebApplicatioMusicStore.Operations
 
         public async Task<List<User>> GetAll()
         {
-            var list = await _db.Users.ToListAsync();
+            var list = await _db.Users.OrderBy(x => x.Alias).ToListAsync();
             list.ForEach(x => x.Password = String.Empty);
             return list;
         }
