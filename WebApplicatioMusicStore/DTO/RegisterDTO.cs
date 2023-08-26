@@ -6,7 +6,8 @@ namespace WebApplicatioMusicStore.DTO
     {
         public int Id { get; set; }
         public int StoreId { get; set; }
-        public string Operation { get; set; }
+        public int Activity { get; set; }
+        public string? Message { get; set; }
         public DateTime CreationDateTime { get; set; }
 
         public RegisterDTO()
@@ -18,7 +19,8 @@ namespace WebApplicatioMusicStore.DTO
         {
             this.Id = register.Id;
             this.StoreId = register.StoreId;
-            this.Operation = register.Operation;
+            this.Activity = register.Activity;  
+            this.Message = register.Message;
             this.CreationDateTime = register.CreationDateTime;
         }
 
@@ -45,7 +47,8 @@ namespace WebApplicatioMusicStore.DTO
             {
                 Id = registerDTO.Id,
                 StoreId = registerDTO.StoreId,
-                Operation = registerDTO.Operation,  
+                Activity = registerDTO.Activity,
+                Message = registerDTO.Message,  
                 CreationDateTime = registerDTO.CreationDateTime
             };
         }

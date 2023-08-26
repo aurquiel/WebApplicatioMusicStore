@@ -3,6 +3,7 @@ using WebApplicatioMusicStore.Models;
 using WebApplicatioMusicStore.FilesHandlers;
 using Microsoft.AspNetCore.Authorization;
 using WebApplicationMusicStore.Models;
+using System.Collections.Generic;
 
 namespace WebApplicatioMusicStore.Controllers
 {
@@ -20,43 +21,44 @@ namespace WebApplicatioMusicStore.Controllers
 
         [HttpGet, Authorize(Roles = "Admin")]
         [Route("api/[controller]/DownloadAudioListServer")]
-        public async Task<GeneralAnswer<string>> DownloadAudiosListServer()
+        public async Task<GeneralAnswer<List<AudioFile>>> DownloadAudiosListServer()
         {
             try
             {
-                return new GeneralAnswer<string>(true, $"Archivo de lista de audios obtenido", await _fileHandler.GetAudioListAsync());
+                return new GeneralAnswer<List<AudioFile>>(true, $"Archivo de lista de audios obtenido", await _fileHandler.GetAudioListAsync());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswer<string>(false, "Error webservice DownloadAudiosList, Excepcion: " + ex.Message, null);
+                return new GeneralAnswer<List<AudioFile>>(false, "Error webservice DownloadAudiosList, Excepcion: " + ex.Message, null);
             }
         }
 
         [HttpGet, Authorize(Roles = "Admin, Store")]
         [Route("api/[controller]/DownloadAudioListStore/{storeCode}")]
-        public async Task<GeneralAnswer<string>> DownloadAudioListStore(string storeCode)
+        public async Task<GeneralAnswer<List<AudioFile>>> DownloadAudioListStore(string storeCode)
         {
             try
             {
-                return new GeneralAnswer<string>(true, $"Archivo de lista de audio obtenido tienda:{storeCode}", await _fileHandler.GetAudioListStoreAsync(storeCode));
+                return new GeneralAnswer<List<AudioFile>> (true, $"Archivo de lista de audio obtenido tienda:{storeCode}", await _fileHandler.GetAudioListStoreAsync(storeCode));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswer<string>(false, "Error webservice DownloadAudioListStore, Excepcion: " + ex.Message, null);
+                return new GeneralAnswer<List<AudioFile>>(false, "Error webservice DownloadAudioListStore, Excepcion: " + ex.Message, null);
             }
         }
 
         [HttpPost, Authorize(Roles = "Admin")]
         [Route("api/[controller]/SynchronizeAudioListStore")]
-        public async Task<GeneralAnswer<string>> SynchronizeAudioListStore(SynchronizeAudioListStoreInfo synchronizeAudioListStoreInfo)
+        public async Task<GeneralAnswer<object>> SynchronizeAudioListStore(SynchronizeAudioListStoreInfo synchronizeAudioListStoreInfo)
         {
             try
             {
-                return new GeneralAnswer<string>(true, $"Lista de audio tienda: {synchronizeAudioListStoreInfo.storeCode} sincronizada.", await _fileHandler.SynchronizeAudioListStoreAsync(synchronizeAudioListStoreInfo.audioList, synchronizeAudioListStoreInfo.storeCode));
+                await _fileHandler.SynchronizeAudioListStoreAsync(synchronizeAudioListStoreInfo.audioList, synchronizeAudioListStoreInfo.storeCode);
+                return new GeneralAnswer<object>(true, $"Lista de audio tienda: {synchronizeAudioListStoreInfo.storeCode} sincronizada.",null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswer<string>(false, "Error webservice SynchronizeAudioListStore, Excepcion: " + ex.Message, null);
+                return new GeneralAnswer<object>(false, "Error webservice SynchronizeAudioListStore, Excepcion: " + ex.Message, null);
             }
         }
 

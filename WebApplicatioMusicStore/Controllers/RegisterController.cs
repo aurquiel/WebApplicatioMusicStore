@@ -34,13 +34,13 @@ namespace WebApplicatioMusicStore.Controllers
         }
 
         [HttpGet(), Authorize(Roles = "Admin")]
-        [Route("api/[controller]/GetRegistersByDate/{date}/")]
-        public async Task<GeneralAnswer<List<RegisterDTO>>> GetRegistersByDate(string date)
+        [Route("api/[controller]/GetRegistersByMonth/{storeId}/{date}/")]
+        public async Task<GeneralAnswer<List<RegisterDTO>>> GetRegistersByMonth(int storeId, string date)
         {
             try
             {
                 DateTime dateParse = DateTime.Parse(date);
-                return new GeneralAnswer<List<RegisterDTO>>(true, "Exitoso: Registros obtenidos.", RegisterDTO.FromDBToDTO(await _registerOP.GetRegistersByDate(dateParse)));
+                return new GeneralAnswer<List<RegisterDTO>>(true, "Exitoso: Registros obtenidos.", RegisterDTO.FromDBToDTO(await _registerOP.GetRegistersByMonth(storeId, dateParse)));
             }
             catch (Exception ex)
             {

@@ -2,7 +2,7 @@
 {
     public class SynchronizeAudioListStoreInfo
     {
-        public string audioList { get; set; }
+        public List<AudioFile> audioList { get; set; }
         public string storeCode { get; set; }
     }
 }

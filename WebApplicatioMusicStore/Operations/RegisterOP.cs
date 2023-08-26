@@ -17,9 +17,9 @@ namespace WebApplicatioMusicStore.Operations
             return await _db.Registers.Where(x => x.StoreId == storeId && x.CreationDateTime.Date >= dateInit && x.CreationDateTime.Date <= dateEnd).ToListAsync();
         }
 
-        public async Task<List<Register>> GetRegistersByDate(DateTime date)
+        public async Task<List<Register>> GetRegistersByMonth(int storeId, DateTime date)
         {
-            return await _db.Registers.Where(x => x.CreationDateTime.Date == date).ToListAsync();
+            return await _db.Registers.Where(x => x.StoreId == storeId && x.CreationDateTime.Date.Month == date.Month && x.CreationDateTime.Date.Year == date.Year).ToListAsync();
         }
 
         public async Task<bool> Insert(Register register)

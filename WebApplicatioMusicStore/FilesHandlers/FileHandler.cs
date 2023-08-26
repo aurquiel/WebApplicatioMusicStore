@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using NAudio.Wave;
+using System.Text;
+using WebApplicationMusicStore.Models;
 
 namespace WebApplicatioMusicStore.FilesHandlers
 {
@@ -6,7 +8,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
     {
         public readonly string FOLDER_AUDIO;
         public readonly string FOLDER_AUDIO_LIST_STORE;
-        public readonly long MAX_SIZE_BYTES = 500000000; //500 Mb
+        public readonly long MAX_SIZE_BYTES = 524288000; //500 Mb
 
         IWebHostEnvironment _env;
         private static SemaphoreSlim semaphore = new SemaphoreSlim(1);
@@ -20,12 +22,13 @@ namespace WebApplicatioMusicStore.FilesHandlers
 
         public async Task<(bool, string)> AudioSaveAsync(IFormFile file)
         {
-            if (await SongAlreaadyExits($"{file.FileName}"))
+            if (SongAlreaadyExits($"{file.FileName}"))
             {
                 return (false, "Error: Audio ya existen.");
             }
 
-            if(DirSize(new DirectoryInfo(FOLDER_AUDIO)) + file.Length > MAX_SIZE_BYTES)
+            var a = DirSize(new DirectoryInfo(FOLDER_AUDIO));
+            if (a + file.Length > MAX_SIZE_BYTES)
             {
                 return (false, "Error: Capacidad maxima de 500 Mb alcanzada, elimine archivos de audio para subir nuevos.");
             }
@@ -35,6 +38,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
             using (FileStream fs = File.Create(fileRoute))
             {
                 await file.OpenReadStream().CopyToAsync(fs);
+                fs.Close();
             }
 
             return (true, "Extioso: Archivo de audio añadido.");
@@ -60,7 +64,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
 
         public async Task<byte[]> AudioDownloadGetBytesAsync(string audioName)
         {
-            if (!await SongAlreaadyExits(audioName))
+            if (!SongAlreaadyExits(audioName))
             {
                 throw new Exception($"Archivo de audio no existente, audio: {audioName}.");
             }
@@ -107,30 +111,52 @@ namespace WebApplicatioMusicStore.FilesHandlers
             }
         }
 
-        private async Task<bool> SongAlreaadyExits(string nameSong)
+        private bool SongAlreaadyExits(string nameSong)
         {
-            var audios = Directory.GetFiles(FOLDER_AUDIO).Select(x => Path.GetFileName(x)).ToList();
-            if (audios.Contains(nameSong))
+            return File.Exists(Path.Combine(FOLDER_AUDIO, nameSong));
+        }
+
+        private AudioFile GetDetailsOfAudioFile(string filePath)
+        {
+            try
             {
-                return true;
+                return new AudioFile
+                {
+                    Name = Path.GetFileName(filePath),
+                    Path = filePath,
+                    Size = new FileInfo(filePath).Length / (1024.0 * 1024.0),
+                    Duration = StripMilliseconds(new AudioFileReader(filePath).TotalTime)
+                };
             }
-
-            return false;
+            catch
+            {
+                return null;
+            }
         }
 
-        public async Task<string> GetAudioListAsync()
+        private TimeSpan StripMilliseconds(TimeSpan time)
         {
-            return await Task.Run(() => String.Join("\r\n", Directory.GetFiles(FOLDER_AUDIO).Select(x => Path.GetFileName(x))));
+            return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds);
         }
 
-        public async Task<string> GetAudioListStoreAsync(string storeCode)
+        public async Task<List<AudioFile>> GetAudioListAsync()
         {
             try
             {
                 await semaphore.WaitAsync();
-                var audioList = string.Join(Environment.NewLine, await System.IO.File.ReadAllLinesAsync(Path.Combine(FOLDER_AUDIO_LIST_STORE,"audioList" + storeCode + ".txt"), Encoding.UTF8));
+                List<AudioFile> audioFiles = new List<AudioFile>();
+                var filesPath = Directory.GetFiles(FOLDER_AUDIO);
+                foreach (var filePath in filesPath)
+                {
+                    var audioFile = GetDetailsOfAudioFile(filePath);
+                    if (audioFile != null)
+                    {
+                        audioFiles.Add(audioFile);
+                    }
+                }
+
                 semaphore.Release();
-                return audioList;
+                return audioFiles;
             }
             catch
             {
@@ -139,31 +165,63 @@ namespace WebApplicatioMusicStore.FilesHandlers
             }
         }
 
-        public async Task<string> SynchronizeAudioListStoreAsync(string audioList, string storeCode)
+        public async Task<List<AudioFile>> GetAudioListStoreAsync(string storeCode)
         {
             try
             {
                 await semaphore.WaitAsync();
-                var audioListArray = audioList.Split(Environment.NewLine).ToList();
+                List<AudioFile> audioFiles = new List<AudioFile>();
+                var fileNames = await System.IO.File.ReadAllLinesAsync(Path.Combine(FOLDER_AUDIO_LIST_STORE, "audioList" + storeCode + ".txt"), Encoding.UTF8);
+
+                List<string> filesPath = new List<string>();
+                foreach (var fileName in fileNames)
+                {
+                    filesPath.Add(Path.Combine(FOLDER_AUDIO, fileName));
+                }
+
+                foreach (var filePath in filesPath)
+                {
+                    var audioFile = GetDetailsOfAudioFile(filePath);
+                    if (audioFile != null)
+                    {
+                        audioFiles.Add(audioFile);
+                    }
+                }
+
+                semaphore.Release();
+                return audioFiles;
+            }
+            catch
+            {
+                semaphore.Release();
+                throw;
+            }
+        }
+
+        public async Task SynchronizeAudioListStoreAsync(List<AudioFile> audioList, string storeCode)
+        {
+            try
+            {
+                await semaphore.WaitAsync();
                 string routeAudioList = Path.Combine(_env.WebRootPath, FOLDER_AUDIO_LIST_STORE + "audioList" + storeCode + ".txt");
                 string routeOfAudios = Path.Combine(_env.WebRootPath, FOLDER_AUDIO);
+                var itemFiles = Directory.GetFiles(routeOfAudios);
 
-                List<string> listOfSongsThatExist = new List<string>();
-                foreach (var song in audioListArray)
+                List<AudioFile> listOfSongsThatExist = new List<AudioFile>();
+                foreach (var song in audioList)
                 {
-                    foreach (var item in Directory.GetFiles(routeOfAudios))
+                    foreach (var item in itemFiles)
                     {
-                        if (Path.GetFileName(item) == song)
+                        if (Path.GetFileName(item) == song.Name)
                         {
                             listOfSongsThatExist.Add(song);
                         }
                     }
                 }
 
-                string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
-                await File.WriteAllTextAsync(routeAudioList, listOfAudioSynchronized , Encoding.UTF8);
+                string listOfAudioSynchronized = String.Join(Environment.NewLine, listOfSongsThatExist.Select(x => x.Name).ToArray());
+                await File.WriteAllTextAsync(routeAudioList, listOfAudioSynchronized, Encoding.UTF8);
                 semaphore.Release();
-                return listOfAudioSynchronized;
             }
             catch
             {
@@ -193,7 +251,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
                             }
                         }
                     }
-                    string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
+                    string listOfAudioSynchronized = String.Join(Environment.NewLine, listOfSongsThatExist);
                     await File.WriteAllTextAsync(audioList, listOfAudioSynchronized, Encoding.UTF8);
                 }
                 semaphore.Release();
