@@ -78,7 +78,6 @@ namespace WebApplicatioMusicStore.FilesHandlers
             try
             {
                 await semaphore.WaitAsync();
-                var audioListStoreFiles = Directory.GetFiles(FOLDER_AUDIO_LIST_STORE);
 
                 File.Delete(Path.Combine(FOLDER_AUDIO, audioName));
 
@@ -87,9 +86,11 @@ namespace WebApplicatioMusicStore.FilesHandlers
                     var lines = (await File.ReadAllLinesAsync(audioList, Encoding.UTF8)).ToList();
                     lines.RemoveAll(x => x == String.Empty);
                     List<string> listOfSongsThatExist = new List<string>();
-                    foreach (var audio in Directory.GetFiles(FOLDER_AUDIO))
+                    var audios = Directory.GetFiles(FOLDER_AUDIO);
+
+                    foreach (var line in lines)
                     {
-                        foreach (var line in lines)
+                        foreach (var audio in audios)
                         {
                             if (Path.GetFileName(audio) == line)
                             {
@@ -97,9 +98,9 @@ namespace WebApplicatioMusicStore.FilesHandlers
                             }
                         }
                     }
+
                     string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
                     await File.WriteAllTextAsync(audioList, listOfAudioSynchronized, Encoding.UTF8);
-
                 }
 
                 semaphore.Release();
@@ -241,9 +242,11 @@ namespace WebApplicatioMusicStore.FilesHandlers
                     var lines = (await File.ReadAllLinesAsync(audioList, Encoding.UTF8)).ToList();    
                     lines.RemoveAll(x => x == String.Empty);
                     List<string> listOfSongsThatExist = new List<string>();
-                    foreach (var audio in Directory.GetFiles(FOLDER_AUDIO))
+                    var audios = Directory.GetFiles(FOLDER_AUDIO);
+                    
+                    foreach(var line in lines)
                     {
-                        foreach(var line in lines)
+                        foreach (var audio in audios)
                         {
                             if (Path.GetFileName(audio) == line)
                             {
@@ -251,6 +254,7 @@ namespace WebApplicatioMusicStore.FilesHandlers
                             }
                         }
                     }
+                    
                     string listOfAudioSynchronized = String.Join(Environment.NewLine, listOfSongsThatExist);
                     await File.WriteAllTextAsync(audioList, listOfAudioSynchronized, Encoding.UTF8);
                 }
