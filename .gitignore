@@ -364,3 +364,7 @@ FodyWeavers.xsd
 
 #audio files too heavy
 WebApplicatioMusicStore/App_Data/audio/*
+ApiTestUnitTesting/App_Data/*
+ApiTestUnitTesting/App_Data/audio/*
+ApiTestUnitTesting/App_Data/audioTest/*
+ApiTestUnitTesting/App_Data/audioTest/*
