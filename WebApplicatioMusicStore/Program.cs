@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
-using WebApplicatioMusicStore.Database;
-using WebApplicatioMusicStore.Operations;
+using WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters.Configuration;
+using WebApplicationMusicStore.DrivenAdapters.FileManager.Configuration;
+using WebApplicationMusicStore.DrivingAdapters.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +17,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AudioStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-builder.Services.AddTransient<IUserOP, UserOP>(); 
-builder.Services.AddTransient<IStoreOP, StoreOP>();  
-builder.Services.AddTransient<IRegisterOP, RegisterOP>();  
+builder.Services.AddAutoMapper(Assembly.Load(typeof(Program).Assembly.GetName().Name!));
+builder.Services.AddDatabase(builder.Configuration.GetConnectionString("Default"));
+builder.Services.AddFileManager();
+builder.Services.AddUseCases();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
