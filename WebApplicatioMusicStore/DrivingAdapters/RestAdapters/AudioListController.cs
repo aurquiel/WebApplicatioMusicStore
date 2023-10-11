@@ -7,6 +7,7 @@ using WebApplicationMusicStore.DrivingAdapters.RestAdapters.Dtos;
 
 namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
 {
+    [ApiController]
     public class AudioListController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -19,16 +20,16 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         }
 
         [HttpGet, Authorize(Roles = "Admin, Store")]
-        [Route("api/[controller]/DownloadAudioListStore/{storeCode}")]
-        public async Task<GeneralAnswerDto<List<AudioFileDto>>> DownloadAudioListStore(string storeCode)
+        [Route("api/[controller]/DownloadAudioListStore/{storeId}")]
+        public async Task<GeneralAnswerDto<List<AudioFileDto>>> DownloadAudioListStore(int storeId)
         {
             try
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(true, $"Succesful audio list obtained from store: {storeCode}",  _mapper.Map<List<AudioFile>, List<AudioFileDto>>(await _audioListDriving.GetAudioListStoreAsync(storeCode)));
+                return new GeneralAnswerDto<List<AudioFileDto>>(true, $"Succesful audio list obtained from store: {storeId}",  _mapper.Map<List<AudioFile>, List<AudioFileDto>>(await _audioListDriving.GetAudioListStoreAsync(storeId)));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(false, $"Error webservice obtaining audio list store {storeCode}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<List<AudioFileDto>>(false, $"Error webservice obtaining audio list store {storeId}, Exception: " + ex.Message, null);
             }
         }
 
@@ -38,12 +39,12 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                await _audioListDriving.SynchronizeAudioListStoreAsync(_mapper.Map<List<AudioFileDto>, List<AudioFile>>(synchronizeAudioListStoreInfo.audioList), synchronizeAudioListStoreInfo.storeCode);
-                return new GeneralAnswerDto<object>(true, $"Audio List Store: {synchronizeAudioListStoreInfo.storeCode}, synchronized.", null);
+                await _audioListDriving.SynchronizeAudioListStoreAsync(_mapper.Map<List<AudioFileDto>, List<AudioFile>>(synchronizeAudioListStoreInfo.audioList), synchronizeAudioListStoreInfo.storeId);
+                return new GeneralAnswerDto<object>(true, $"Audio List Store: {synchronizeAudioListStoreInfo.storeId}, synchronized.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice synchronizing audio list store: {synchronizeAudioListStoreInfo.storeCode}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice synchronizing audio list store: {synchronizeAudioListStoreInfo.storeId}, Exception: " + ex.Message, null);
             }
         }
 

@@ -12,7 +12,7 @@ namespace WebApplicationMusicStore.DrivenAdapters.FileManager
             {
                 Name = Path.GetFileName(filePath),
                 Path = filePath,
-                Size = new FileInfo(filePath).Length / (1024.0 * 1024.0),
+                Size = Math.Round(new FileInfo(filePath).Length / (1024.0 * 1024.0), 2),
                 Duration = StripMilliseconds(new AudioFileReader(filePath).TotalTime)
             };
         }

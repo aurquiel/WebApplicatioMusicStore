@@ -8,7 +8,6 @@ using ClassLibraryDomain.Models;
 namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class AudioController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -40,8 +39,8 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                await _audioDriving.AudioSaveAsync(file.Name ,file.OpenReadStream());
-                return new GeneralAnswerDto<object>(true, $"Audio: {file.Name}, successfully upload to server.", null);
+                await _audioDriving.AudioSaveAsync(file.FileName ,file.OpenReadStream());
+                return new GeneralAnswerDto<object>(true, $"Audio: {file.FileName}, successfully upload to server.", null);
             }
             catch (Exception ex)
             {

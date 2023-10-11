@@ -9,11 +9,10 @@ namespace ClassLibraryDomain.Ports.Driving
 {
     public interface IAudioListDriving
     {
-        Task<List<AudioFile>> GetAudioListStoreAsync(string storeCode);
-        Task SynchronizeAudioListStoreAsync(List<AudioFile> audioList, string storeCode);
+        Task<List<AudioFile>> GetAudioListStoreAsync(int storeId);
+        Task SynchronizeAudioListStoreAsync(List<AudioFile> audioList, int storeId);
         Task SynchronizeAudioListAllStoreAsync();
-        Task RenameAudioListStoreFile(string oldFileName, string newFileName);
-        Task CreateAudioListStore(string storeCode);
-        Task DeleteAudioListStore(string storeCode);
+        Task DeleteAudioListStore(int storeId);
+        Task DeleteAudioFromAudioListStore(string audioName);
     }
 }

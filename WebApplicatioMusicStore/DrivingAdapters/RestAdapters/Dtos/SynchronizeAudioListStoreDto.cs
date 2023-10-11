@@ -3,6 +3,6 @@
     public class SynchronizeAudioListStoreDto
     {
         public List<AudioFileDto> audioList { get; set; }
-        public string storeCode { get; set; }
+        public int storeId { get; set; }
     }
 }

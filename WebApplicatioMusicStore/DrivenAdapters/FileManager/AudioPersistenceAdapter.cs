@@ -1,7 +1,6 @@
 ﻿using ClassLibraryDomain.Exceptions;
 using ClassLibraryDomain.Models;
 using ClassLibraryDomain.Ports.Driven;
-using System.Text;
 
 namespace WebApplicationMusicStore.DrivenAdapters.FileManager
 {
@@ -14,7 +13,7 @@ namespace WebApplicationMusicStore.DrivenAdapters.FileManager
             _audioFileDetails = audioFileDetails;
         }
 
-        public async Task<List<AudioFile>> GetAudioListAsync()
+        public async Task<List<AudioFile>> GetAudioListServerAsync()
         {
             try
             {
@@ -47,28 +46,6 @@ namespace WebApplicationMusicStore.DrivenAdapters.FileManager
                 await Semaphore.WaitAsync();
 
                 File.Delete(Path.Combine(FOLDER_AUDIO, audioName));
-
-                foreach (var audioList in Directory.GetFiles(FOLDER_AUDIO_LIST))
-                {
-                    var lines = (await File.ReadAllLinesAsync(audioList, Encoding.UTF8)).ToList();
-                    lines.RemoveAll(x => x == String.Empty);
-                    List<string> listOfSongsThatExist = new List<string>();
-                    var audios = Directory.GetFiles(FOLDER_AUDIO);
-
-                    foreach (var line in lines)
-                    {
-                        foreach (var audio in audios)
-                        {
-                            if (Path.GetFileName(audio) == line)
-                            {
-                                listOfSongsThatExist.Add(line);
-                            }
-                        }
-                    }
-
-                    string listOfAudioSynchronized = String.Join("\r\n", listOfSongsThatExist);
-                    await File.WriteAllTextAsync(audioList, listOfAudioSynchronized, Encoding.UTF8);
-                }
 
                 Semaphore.Release();
             }

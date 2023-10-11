@@ -68,17 +68,17 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         }
 
         [HttpDelete(), Authorize(Roles = "Admin")]
-        [Route("api/[controller]/UserDelete")]
-        public async Task<GeneralAnswerDto<object>> UserDelete(int id)
+        [Route("api/[controller]/UserDelete/{userId}")]
+        public async Task<GeneralAnswerDto<object>> UserDelete(int userId)
         {
             try
             {
-                await _userDriving.DeleteAsync(id);
+                await _userDriving.DeleteAsync(userId);
                 return new GeneralAnswerDto<object>(true, "User deleted successfully", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice deleting user id: {id}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice deleting user id: {userId}, Exception: " + ex.Message, null);
             }
         }
     }

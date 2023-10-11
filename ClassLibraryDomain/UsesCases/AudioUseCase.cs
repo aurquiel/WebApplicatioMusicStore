@@ -1,26 +1,23 @@
 ﻿using ClassLibraryDomain.Models;
 using ClassLibraryDomain.Ports.Driven;
 using ClassLibraryDomain.Ports.Driving;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibraryDomain.UsesCases
 {
     public class AudioUseCase : IAudioDriving
     {
         private readonly IAudioPersistencePort _audioPersistencePort;
+        private readonly IAudioListPersistencePort _audioListPersistencePort;
 
-        public AudioUseCase(IAudioPersistencePort audioPersistencePort)
+        public AudioUseCase(IAudioPersistencePort audioPersistencePort, IAudioListPersistencePort audioListPersistencePort)
         {
             _audioPersistencePort = audioPersistencePort;
+            _audioListPersistencePort = audioListPersistencePort;
         }
 
         public async Task<List<AudioFile>> GetAudioListAsync()
         {
-            return await _audioPersistencePort.GetAudioListAsync(); 
+            return await _audioPersistencePort.GetAudioListServerAsync(); 
         }
 
         public async Task<byte[]> AudiodGetBytesAsync(string audioName)
@@ -35,9 +32,8 @@ namespace ClassLibraryDomain.UsesCases
 
         public async Task AudioDeleteAsync(string audioName)
         {
-            await _audioPersistencePort.AudioDeleteAsync(audioName);
+            await _audioPersistencePort.AudioDeleteAsync(audioName); //Eliminar de la carpeta fisica
+            await _audioListPersistencePort.DeleteAudioFromAudioListStoreAsync(audioName); //Eliminar de las lista de audio de las tiendas.
         }
-
-        
     }
 }

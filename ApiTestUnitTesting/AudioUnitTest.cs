@@ -1,18 +1,12 @@
 using ApiTestUnitTesting.MockDependicies;
 using AutoMapper;
-using ClassLibraryDomain.Models;
-using ClassLibraryDomain.Ports.Driven;
 using ClassLibraryDomain.UsesCases;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters;
-using WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters.Entities;
 using WebApplicationMusicStore.DrivenAdapters.FileManager;
 using WebApplicationMusicStore.DrivingAdapters.RestAdapters;
 using WebApplicationMusicStore.DrivingAdapters.RestAdapters.Dtos;
-using WebApplicationMusicStore.DrivingAdapters.Utils;
 using Xunit.Priority;
 
 namespace ApiTestUnitTesting
@@ -29,10 +23,25 @@ namespace ApiTestUnitTesting
         public AudioUnitTest()
         {
             _mapper = MapperTotalSingleton.GetMapper();
-            _audioController = new AudioController(_mapper,
-                new AudioUseCase(new AudioPersistenceAdapter(new WebHostEnvironmentDummy(), new AudioFileDetailsPersistenceAdapter())));
-            _audioListController = new AudioListController(_mapper,
-                new AudioListUseCase(new AudioListPersistenceAdapter(new WebHostEnvironmentDummy(), new AudioFileDetailsPersistenceAdapter())));
+            _audioController = new AudioController(
+                _mapper,
+                new AudioUseCase(
+                    new AudioPersistenceAdapter(
+                        new WebHostEnvironmentDummy(), 
+                        new AudioFileDetailsPersistenceAdapter())
+                    , new AudioListPersistenceAdapter(
+                        new AudioStoreDbContext(), 
+                        _mapper)));
+
+            _audioListController = new AudioListController(
+                _mapper,
+                new AudioListUseCase(
+                    new AudioListPersistenceAdapter(
+                        new AudioStoreDbContext(), 
+                        _mapper), 
+                    new AudioPersistenceAdapter(
+                        new WebHostEnvironmentDummy(),
+                        new AudioFileDetailsPersistenceAdapter())));
         }
 
         [Fact, Priority(-10)]
@@ -63,23 +72,22 @@ namespace ApiTestUnitTesting
             Assert.True(result2.Data.Any(x => x.Name == "test.mp3"));
         }
 
-        [Fact, Priority(-8)]
-        public async Task DownloadAudioListStore()
-        {
-            var result = await _audioListController.DownloadAudioListStore("1020");
-            _audioListFileDtoList = result.Data;
-            Assert.True(result.Status);
-        }
-
         [Fact, Priority(-7)]
         public async Task SynchronizeAudioListStore()
         {
-            _audioListFileDtoList.Add(new AudioFileDto { Name = "test.mp3" });
-            var result = await _audioListController.SynchronizeAudioListStore(new SynchronizeAudioListStoreDto { storeCode = "1020", audioList = _audioListFileDtoList });
+            _audioListFileDtoList = (await _audioController.DownloadAudiosListServer()).Data;
+
+            for (int i = 0; i < _audioListFileDtoList.Count; i++)
+            {
+                _audioListFileDtoList[i].Order = i;
+                _audioListFileDtoList[i].StoreId = 2;
+            }
+
+            var result = await _audioListController.SynchronizeAudioListStore(new SynchronizeAudioListStoreDto { storeId = 2, audioList = _audioListFileDtoList });
 
             Assert.True(result.Status);
 
-            var result2 = await _audioListController.DownloadAudioListStore("1020");
+            var result2 = await _audioListController.DownloadAudioListStore(2);
             _audioListFileDtoList = result2.Data;
 
             Assert.True(result2.Data.Any(x => x.Name == "test.mp3"));
@@ -104,7 +112,7 @@ namespace ApiTestUnitTesting
             var result2 = await _audioController.DownloadAudiosListServer();
             Assert.False(result2.Data.Any(x => x.Name == "test.mp3"));
 
-            var result3 = await _audioListController.DownloadAudioListStore("1020");
+            var result3 = await _audioListController.DownloadAudioListStore(2);
             _audioListFileDtoList = result3.Data;
             Assert.False(result3.Data.Any(x => x.Name == "test.mp3"));
 
@@ -116,7 +124,7 @@ namespace ApiTestUnitTesting
             var result = await _audioListController.SynchronizeAudioListAllStore();
             Assert.True(result.Status);
 
-            var result2 = await _audioListController.DownloadAudioListStore("1020");
+            var result2 = await _audioListController.DownloadAudioListStore(2);
 
             Assert.Equal(result2.Data, _audioListFileDtoList);
         }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClassLibraryDomain.Models;
+using WebApplicationMusicStore.DrivingAdapters.RestAdapters.Dtos;
 
 namespace WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters.Entities.Mappings
 {
@@ -7,6 +8,8 @@ namespace WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters.Entities.Mapp
     {
         public AudioStoreDbMappingProfile()
         {
+            CreateMap<AudioListEntity, AudioFile>();
+            CreateMap<AudioFile, AudioListEntity>();
             CreateMap<UserEntity, User>();
             CreateMap<User, UserEntity>();
             CreateMap<StoreEntity, Store>();

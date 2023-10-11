@@ -12,6 +12,8 @@ namespace ApiTestUnitTesting.MockDependicies
 
         private MapperTotalSingleton()
         {
+            CreateMap<AudioListEntity, AudioFile>();
+            CreateMap<AudioFile, AudioListEntity>();
             CreateMap<UserEntity, User>();
             CreateMap<User, UserEntity>();
             CreateMap<StoreEntity, Store>();

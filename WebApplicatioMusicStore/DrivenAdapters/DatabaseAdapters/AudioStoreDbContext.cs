@@ -557,6 +557,7 @@ namespace WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters
             });
         }
 
+        public DbSet<AudioListEntity> AudioListEntity { get; set; }
         public DbSet<RegisterEntity> RegistersEntity { get; set; }
         public DbSet<StoreEntity> StoresEntity { get; set; }
         public DbSet<UserEntity> UsersEntity { get; set; }

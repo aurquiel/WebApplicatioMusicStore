@@ -2,46 +2,44 @@
 using ClassLibraryDomain.Ports.Driven;
 using ClassLibraryDomain.Ports.Driving;
 
-
 namespace ClassLibraryDomain.UsesCases
 {
     public class AudioListUseCase : IAudioListDriving
     {
         private readonly IAudioListPersistencePort _audioListPersistencePort;
+        private readonly IAudioPersistencePort _audioPersistencePort;
 
-        public AudioListUseCase(IAudioListPersistencePort audioListPersistencePort)
+        public AudioListUseCase(IAudioListPersistencePort audioListPersistencePort, IAudioPersistencePort audioPersistencePort)
         {
             _audioListPersistencePort = audioListPersistencePort;
+            _audioPersistencePort = audioPersistencePort;
         }
 
-        public async Task CreateAudioListStore(string storeCode)
+        public async Task<List<AudioFile>> GetAudioListStoreAsync(int storeId)
         {
-            await _audioListPersistencePort.CreateAudioListStore(storeCode);
-        }
-
-        public async Task DeleteAudioListStore(string storeCode)
-        {
-            await _audioListPersistencePort.DeleteAudioListStoreAsync(storeCode);
-        }
-
-        public async Task<List<AudioFile>> GetAudioListStoreAsync(string storeCode)
-        {
-            return await _audioListPersistencePort.GetAudioListStoreAsync(storeCode);
-        }
-
-        public async Task RenameAudioListStoreFile(string oldFileName, string newFileName)
-        {
-            await _audioListPersistencePort.RenameAudioListStoreFile(oldFileName, newFileName); 
+            return await _audioListPersistencePort.GetAudioListStoreAsync(storeId);
         }
 
         public async Task SynchronizeAudioListAllStoreAsync()
         {
-            await _audioListPersistencePort.SynchronizeAudioListAllStoreAsync();    
+            List<AudioFile> audioListServer = await _audioPersistencePort.GetAudioListServerAsync();
+            await _audioListPersistencePort.SynchronizeAudioListAllStoreAsync(audioListServer);
         }
 
-        public async Task SynchronizeAudioListStoreAsync(List<AudioFile> audioList, string storeCode)
+        public async Task SynchronizeAudioListStoreAsync(List<AudioFile> audioList, int storeId)
         {
-            await _audioListPersistencePort.SynchronizeAudioListStoreAsync(audioList, storeCode);
+            await _audioListPersistencePort.DeleteAudioListStoreAsync(storeId);
+            await _audioListPersistencePort.SynchronizeAudioListStoreAsync(audioList);
+        }
+
+        public async Task DeleteAudioListStore(int storeId)
+        {
+            await _audioListPersistencePort.DeleteAudioListStoreAsync(storeId);
+        }
+
+        public async Task DeleteAudioFromAudioListStore(string audioName)
+        {
+            await _audioListPersistencePort.DeleteAudioFromAudioListStoreAsync(audioName);  
         }
     }
 }

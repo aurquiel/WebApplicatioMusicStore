@@ -31,7 +31,6 @@ namespace ClassLibraryDomain.UsesCases
             }
 
             await _storePersistencePort.InsertAsync(store);
-            await _audioListPersistencePort.CreateAudioListStore(store.Code);
         }
 
         public async Task UpdateAsync(Store store)
@@ -51,7 +50,6 @@ namespace ClassLibraryDomain.UsesCases
             }
 
             await _storePersistencePort.UpdateAsync(store);
-            await _audioListPersistencePort.RenameAudioListStoreFile(storeBeforeUpdate.Code, store.Code);
         }
 
         public async Task DeleteAsync(int storeId)
@@ -63,8 +61,8 @@ namespace ClassLibraryDomain.UsesCases
                 throw new StoreNotFoundException(storeId);
             }
 
+            await _audioListPersistencePort.DeleteAudioListStoreAsync(store.Id);
             await _storePersistencePort.DeleteAsync(store);
-            await _audioListPersistencePort.DeleteAudioListStoreAsync(store.Code);
         }
     }
 }

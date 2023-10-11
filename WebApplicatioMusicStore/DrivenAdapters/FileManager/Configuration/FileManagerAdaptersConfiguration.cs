@@ -9,7 +9,6 @@ namespace WebApplicationMusicStore.DrivenAdapters.FileManager.Configuration
         public static IServiceCollection AddFileManager(this IServiceCollection services)
         {
             services.AddSingleton<IAudioPersistencePort, AudioPersistenceAdapter>();
-            services.AddSingleton<IAudioListPersistencePort, AudioListPersistenceAdapter>();
             services.AddTransient<IAudioFileDetails, AudioFileDetailsPersistenceAdapter>();
 
             return services;

@@ -5,7 +5,6 @@ using ClassLibraryDomain.UsesCases;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters;
 using WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters.Entities;
-using WebApplicationMusicStore.DrivenAdapters.FileManager;
 using WebApplicationMusicStore.DrivingAdapters.RestAdapters;
 using WebApplicationMusicStore.DrivingAdapters.RestAdapters.Dtos;
 using Xunit.Priority;
@@ -21,8 +20,8 @@ namespace ApiTestUnitTesting
         public StoreUnitTest()
         {
             _mapper = MapperTotalSingleton.GetMapper();
-            _storeController = new StoreController( _mapper,
-                new StoreUseCase(new StorePersistenceAdapter(new AudioStoreDbContext(), _mapper), new AudioListPersistenceAdapter(new WebHostEnvironmentDummy(), new AudioFileDetailsPersistenceAdapter()) ));
+            _storeController = new StoreController(_mapper,
+                new StoreUseCase(new StorePersistenceAdapter(new AudioStoreDbContext(), _mapper), new AudioListPersistenceAdapter(new AudioStoreDbContext(), _mapper)));
         }
 
         [Fact, Priority(-6)]
@@ -49,7 +48,6 @@ namespace ApiTestUnitTesting
             var result = await _storeController.StoreInsert(new StoreDto { Code = "9999", CreationDateTime = DateTime.Now  });
 
             Assert.True(result.Status);
-            Assert.True(File.Exists(Path.Combine(new WebHostEnvironmentDummy().ContentRootPath, "App_Data\\audioList\\audioList9999.txt")));
         }
 
         [Fact, Priority(-5)]
@@ -65,8 +63,6 @@ namespace ApiTestUnitTesting
             var result = await _storeController.StoreUpdate(new StoreDto { Id = await GetStoreIdByCode("9999"), Code = "9900", CreationDateTime = DateTime.Now });
 
             Assert.True(result.Status);
-            Assert.False(File.Exists(Path.Combine(new WebHostEnvironmentDummy().ContentRootPath, "App_Data\\audioList\\audioList9999.txt")));
-            Assert.True(File.Exists(Path.Combine(new WebHostEnvironmentDummy().ContentRootPath, "App_Data\\audioList\\audioList9900.txt")));
 
         }
 
@@ -84,7 +80,6 @@ namespace ApiTestUnitTesting
             var result = await _storeController.StoreDelete(await GetStoreIdByCode("9900"));
 
             Assert.True(result.Status);
-            Assert.False(File.Exists(Path.Combine(new WebHostEnvironmentDummy().ContentRootPath, "App_Data\\audioList\\audioList9900.txt")));
         }
 
     }

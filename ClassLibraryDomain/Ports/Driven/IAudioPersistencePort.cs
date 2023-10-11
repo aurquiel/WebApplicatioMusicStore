@@ -7,6 +7,6 @@ namespace ClassLibraryDomain.Ports.Driven
         Task AudioSaveAsync(string audioName, Stream streamFile);
         Task<byte[]> AudiodGetBytesAsync(string audioName);
         Task AudioDeleteAsync(string audioName);
-        Task<List<AudioFile>> GetAudioListAsync();
+        Task<List<AudioFile>> GetAudioListServerAsync();
     }
 }

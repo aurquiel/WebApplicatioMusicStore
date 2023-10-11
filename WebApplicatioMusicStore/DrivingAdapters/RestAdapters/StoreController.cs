@@ -64,17 +64,17 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         }
 
         [HttpDelete(), Authorize(Roles = "Admin")]
-        [Route("api/[controller]/StoreDelete")]
-        public async Task<GeneralAnswerDto<object>> StoreDelete(int id)
+        [Route("api/[controller]/StoreDelete/{storeId}")]
+        public async Task<GeneralAnswerDto<object>> StoreDelete(int storeId)
         {
             try
             {
-                await _storeDriving.DeleteAsync(id);
-                return new GeneralAnswerDto<object>(true, $"Store id: {id}, deleted Successfully", null);
+                await _storeDriving.DeleteAsync(storeId);
+                return new GeneralAnswerDto<object>(true, $"Store id: {storeId}, deleted Successfully", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice deleting store id: {id}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice deleting store id: {storeId}, Exception: " + ex.Message, null);
             }
         }
     }
