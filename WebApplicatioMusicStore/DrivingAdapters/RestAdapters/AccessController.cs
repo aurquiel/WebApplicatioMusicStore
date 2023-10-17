@@ -36,7 +36,6 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
                 password = Hash256.HashOfUserPassword(password);
                 User user = await _userAccessDriving.AcccesLoginTokenAsync(alias, password);
                 var token = GenerateToken(user);
-                user.Password = string.Empty;
 
                 return new GeneralAnswerDto<UserAccessDto>(true, $"Successful login, user: {alias}", new UserAccessDto { User = _mapper.Map<UserDto>(user), Token = token });
             }
