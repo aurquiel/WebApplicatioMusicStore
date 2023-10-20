@@ -10,7 +10,7 @@ namespace ClassLibraryDomain.Exceptions
 {
     public class StoreNotFoundException : Exception
     {
-        public StoreNotFoundException(int id) : base($"Store id: {id}, store not found.")
+        public StoreNotFoundException(int id) : base($"Tienda id: {id}, tienda no encontrada.")
         {
 
         }

@@ -10,7 +10,7 @@ namespace ClassLibraryDomain.Exceptions
 {
     public class UserNotFoundException : Exception
     {
-        public UserNotFoundException(int id) : base($"User id: {id}, user not found.")
+        public UserNotFoundException(int id) : base($"Usuario id: {id}, usuario no encontrado.")
         {
 
         }

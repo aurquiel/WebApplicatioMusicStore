@@ -37,11 +37,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
                 User user = await _userAccessDriving.AcccesLoginTokenAsync(alias, password);
                 var token = GenerateToken(user);
 
-                return new GeneralAnswerDto<UserAccessDto>(true, $"Successful login, user: {alias}", new UserAccessDto { User = _mapper.Map<UserDto>(user), Token = token });
+                return new GeneralAnswerDto<UserAccessDto>(true, $"Usuario logueado con exito, user: {alias}", new UserAccessDto { User = _mapper.Map<UserDto>(user), Token = token });
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<UserAccessDto>(false, "Error websrevice user login, Exception: " + ex.Message, new UserAccessDto { User = new UserDto(), Token = string.Empty });
+                return new GeneralAnswerDto<UserAccessDto>(false, $"Error websrevice login usuario: {alias}, Exception: " + ex.Message, new UserAccessDto { User = new UserDto(), Token = string.Empty });
             }
 
         }

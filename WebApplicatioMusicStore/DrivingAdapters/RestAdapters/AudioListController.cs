@@ -25,11 +25,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(true, $"Succesful audio list obtained from store: {storeId}",  _mapper.Map<List<AudioFile>, List<AudioFileDto>>(await _audioListDriving.GetAudioListStoreAsync(storeId)));
+                return new GeneralAnswerDto<List<AudioFileDto>>(true, $"Lista de Audio de la tienda obtenida exitosamente.",  _mapper.Map<List<AudioFile>, List<AudioFileDto>>(await _audioListDriving.GetAudioListStoreAsync(storeId)));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(false, $"Error webservice obtaining audio list store {storeId}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<List<AudioFileDto>>(false, $"Error webservice obteniendo Lista de Audio de la tienda, tienda id: {storeId}, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -40,11 +40,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioListDriving.SynchronizeAudioListStoreAsync(_mapper.Map<List<AudioFileDto>, List<AudioFile>>(synchronizeAudioListStoreInfo.audioList), synchronizeAudioListStoreInfo.storeId);
-                return new GeneralAnswerDto<object>(true, $"Audio List Store: {synchronizeAudioListStoreInfo.storeId}, synchronized.", null);
+                return new GeneralAnswerDto<object>(true, $"Lista de Audio de la tienda sincronizada.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice synchronizing audio list store: {synchronizeAudioListStoreInfo.storeId}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice sincronizando Lista de Audio de la tienda id: {synchronizeAudioListStoreInfo.storeId}, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -55,11 +55,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioListDriving.SynchronizeAudioListAllStoreAsync();
-                return new GeneralAnswerDto<object>(true, "All audio list from stores have been successfully synchronized", null);
+                return new GeneralAnswerDto<object>(true, "Todas las Lista de Audio de las teindas syncronizadas.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, "Error webservice synchronizing all audio list from stores, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, "Error webservice sincronizando todas las Lista de Audio de las tiendas, Excepcion: " + ex.Message, null);
             }
         }
     }

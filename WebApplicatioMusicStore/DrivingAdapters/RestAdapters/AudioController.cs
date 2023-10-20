@@ -25,11 +25,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(true, $"Audio List Server obtained successfully", _mapper.Map<List<AudioFile>,  List<AudioFileDto>>(await _audioDriving.GetAudioListAsync()));
+                return new GeneralAnswerDto<List<AudioFileDto>>(true, $"Lista de Audio del servidor obtenido exitosamente.", _mapper.Map<List<AudioFile>,  List<AudioFileDto>>(await _audioDriving.GetAudioListAsync()));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(false, "Error webservice obtaining Audio List from server, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<List<AudioFileDto>>(false, "Error webservice obteniendo Lista de Audio del servisor, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -40,11 +40,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioDriving.AudioSaveAsync(file.FileName ,file.OpenReadStream());
-                return new GeneralAnswerDto<object>(true, $"Audio: {file.FileName}, successfully upload to server.", null);
+                return new GeneralAnswerDto<object>(true, $"Audio: {file.FileName}, subido exitosamente al servidor.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, "Error webservice uploading audio, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice subiendo audio: {file.FileName}, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -62,11 +62,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioDriving.AudioDeleteAsync(audioName);
-                return new GeneralAnswerDto<object>(true, $"Audio: {audioName} successfully deleted", null);
+                return new GeneralAnswerDto<object>(true, $"Audio: {audioName} eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error wenservice deleting audio {audioName}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando audio: {audioName}, Exception: " + ex.Message, null);
             }
         }
     }

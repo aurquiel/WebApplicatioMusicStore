@@ -26,11 +26,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                return new GeneralAnswerDto<List<UserDto>>(true, "List of Users obtained successfully", _mapper.Map<List<User>, List<UserDto>>(await _userDriving.GetAllAsync()));
+                return new GeneralAnswerDto<List<UserDto>>(true, "Lista de Usuarios obtenida exitosamente.", _mapper.Map<List<User>, List<UserDto>>(await _userDriving.GetAllAsync()));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<UserDto>>(false, "Error webservice obtaining List of Users, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<List<UserDto>>(false, "Error webservice obteniendo Lista de Usuarios, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -43,11 +43,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             {
                 userDTO.Password = Hash256.HashOfUserPassword(userDTO.Password);
                 await _userDriving.InsertAsync(_mapper.Map<User>(userDTO));
-                return new GeneralAnswerDto<object>(true, "User created successfully", null);
+                return new GeneralAnswerDto<object>(true, $"Usuario: {userDTO.Alias} creado exitosamente.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, "Error webservice creating user, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice creando usuario: {userDTO.Alias}, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -59,11 +59,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             {
                 userDTO.Password = Hash256.HashOfUserPassword(userDTO.Password);
                 await _userDriving.UpdateAsync(_mapper.Map<User>(userDTO));
-                return new GeneralAnswerDto<object>(true, "User edited successfully", null);
+                return new GeneralAnswerDto<object>(true, $"Usuario: {userDTO.Alias} actualizado exitosamente.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice editing user id: {userDTO.Id}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice actualziando usuario id: {userDTO.Id}, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -74,11 +74,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _userDriving.DeleteAsync(userId);
-                return new GeneralAnswerDto<object>(true, "User deleted successfully", null);
+                return new GeneralAnswerDto<object>(true, "Usuario eliminado exitosamente.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice deleting user id: {userId}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando usuario id: {userId}, Excepcion: " + ex.Message, null);
             }
         }
     }

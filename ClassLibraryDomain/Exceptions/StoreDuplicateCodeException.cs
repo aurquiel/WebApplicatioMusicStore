@@ -10,7 +10,7 @@ namespace ClassLibraryDomain.Exceptions
 {
     public class StoreDuplicateCodeException : Exception
     {
-        public StoreDuplicateCodeException(string code) : base($"Store code: {code} already exits.")
+        public StoreDuplicateCodeException(string code) : base($"Tienda codigo: {code} ya existe.")
         {
 
         }

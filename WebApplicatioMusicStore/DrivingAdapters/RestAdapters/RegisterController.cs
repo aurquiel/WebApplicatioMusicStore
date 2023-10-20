@@ -25,11 +25,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                return new GeneralAnswerDto<List<RegisterDto>>(true, "Registers obtained successfully", _mapper.Map<List<Register>, List<RegisterDto>>(await _registerDriving.GetByIdAndRangeDateAsync(storeId, DateTime.Parse(dateInit), DateTime.Parse(dateEnd))));
+                return new GeneralAnswerDto<List<RegisterDto>>(true, "Registros obtenidos exitosamente.", _mapper.Map<List<Register>, List<RegisterDto>>(await _registerDriving.GetByIdAndRangeDateAsync(storeId, DateTime.Parse(dateInit), DateTime.Parse(dateEnd))));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obtaining Registers, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obteniendo Registros, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -39,11 +39,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
         {
             try
             {
-                return new GeneralAnswerDto<List<RegisterDto>>(true, "Registers obtained successfully", _mapper.Map<List<Register>, List<RegisterDto>>(await _registerDriving.GetByIdAndMonthAsync(storeId, DateTime.Parse(date))));
+                return new GeneralAnswerDto<List<RegisterDto>>(true, "Registros obtenidos exitosamente.", _mapper.Map<List<Register>, List<RegisterDto>>(await _registerDriving.GetByIdAndMonthAsync(storeId, DateTime.Parse(date))));
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obtaining Registers by month, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obteniendo Registros por mes, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -54,11 +54,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _registerDriving.InsertAsync(_mapper.Map<List<RegisterDto>, List<Register>>(registersDto));
-                return new GeneralAnswerDto<object>(true, "Registers successfullty created.", null);
+                return new GeneralAnswerDto<object>(true, "Registros creados exitosamente.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, "Error webservice creating registers, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, "Error webservice creando Registros, Excepcion: " + ex.Message, null);
             }
         }
 
@@ -69,11 +69,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _registerDriving.DeleteAllByStoreIdAsync(storeId);
-                return new GeneralAnswerDto<object>(true, $"Registers sucessfully deleted, store id: {storeId}", null);
+                return new GeneralAnswerDto<object>(true, $"Registros eliminados exitosamente.", null);
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice deleting registers store id: {storeId}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando Registros tienda id: {storeId}, Excepcion: " + ex.Message, null);
             }
         }
     }

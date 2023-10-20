@@ -10,7 +10,7 @@ namespace ClassLibraryDomain.Exceptions
 {
     public class AudioNotFoundException : Exception
     {
-        public AudioNotFoundException(string audioName) : base($"Audio: {audioName}, audio not found.")
+        public AudioNotFoundException(string audioName) : base($"Audio: {audioName}, audio no encontrado.")
         {
 
         }

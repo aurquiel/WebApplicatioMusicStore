@@ -10,7 +10,7 @@ namespace ClassLibraryDomain.Exceptions
 {
     internal class UserLoginException : Exception
     {
-        public UserLoginException(string alias) : base($"User alias: {alias}, incorret credentials.")
+        public UserLoginException(string alias) : base($"Usuario: {alias}, crendciales incorrectas.")
         {
 
         }
