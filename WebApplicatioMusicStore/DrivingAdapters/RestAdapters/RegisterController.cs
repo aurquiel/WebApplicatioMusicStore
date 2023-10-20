@@ -29,7 +29,7 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obteniendo Registros, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obteniendo Registros, Excepcion: " + ex.Message, new List<RegisterDto>());
             }
         }
 
@@ -43,7 +43,7 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obteniendo Registros por mes, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<List<RegisterDto>>(false, "Error webservice obteniendo Registros por mes, Excepcion: " + ex.Message, new List<RegisterDto>());
             }
         }
 
@@ -54,11 +54,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _registerDriving.InsertAsync(_mapper.Map<List<RegisterDto>, List<Register>>(registersDto));
-                return new GeneralAnswerDto<object>(true, "Registros creados exitosamente.", null);
+                return new GeneralAnswerDto<object>(true, "Registros creados exitosamente.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, "Error webservice creando Registros, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, "Error webservice creando Registros, Excepcion: " + ex.Message, new object());
             }
         }
 
@@ -69,11 +69,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _registerDriving.DeleteAllByStoreIdAsync(storeId);
-                return new GeneralAnswerDto<object>(true, $"Registros eliminados exitosamente.", null);
+                return new GeneralAnswerDto<object>(true, $"Registros eliminados exitosamente.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando Registros tienda id: {storeId}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando Registros tienda id: {storeId}, Excepcion: " + ex.Message, new object());
             }
         }
     }

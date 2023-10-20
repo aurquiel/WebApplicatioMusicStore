@@ -3,6 +3,7 @@ using ClassLibraryDomain.Models;
 using ClassLibraryDomain.Ports.Driving;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebApplicationMusicStore.DrivingAdapters.RestAdapters.Dtos;
 
 namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
@@ -29,7 +30,7 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(false, $"Error webservice obteniendo Lista de Audio de la tienda, tienda id: {storeId}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<List<AudioFileDto>>(false, $"Error webservice obteniendo Lista de Audio de la tienda, tienda id: {storeId}, Excepcion: " + ex.Message, new List<AudioFileDto>());
             }
         }
 
@@ -40,11 +41,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioListDriving.SynchronizeAudioListStoreAsync(_mapper.Map<List<AudioFileDto>, List<AudioFile>>(synchronizeAudioListStoreInfo.audioList), synchronizeAudioListStoreInfo.storeId);
-                return new GeneralAnswerDto<object>(true, $"Lista de Audio de la tienda sincronizada.", null);
+                return new GeneralAnswerDto<object>(true, $"Lista de Audio de la tienda sincronizada.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice sincronizando Lista de Audio de la tienda id: {synchronizeAudioListStoreInfo.storeId}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice sincronizando Lista de Audio de la tienda id: {synchronizeAudioListStoreInfo.storeId}, Excepcion: " + ex.Message, new object());
             }
         }
 
@@ -55,11 +56,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioListDriving.SynchronizeAudioListAllStoreAsync();
-                return new GeneralAnswerDto<object>(true, "Todas las Lista de Audio de las teindas syncronizadas.", null);
+                return new GeneralAnswerDto<object>(true, "Todas las Lista de Audio de las teindas syncronizadas.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, "Error webservice sincronizando todas las Lista de Audio de las tiendas, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, "Error webservice sincronizando todas las Lista de Audio de las tiendas, Excepcion: " + ex.Message, new object());
             }
         }
     }

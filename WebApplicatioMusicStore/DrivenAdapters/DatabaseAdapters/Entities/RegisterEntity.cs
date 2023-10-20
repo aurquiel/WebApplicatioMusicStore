@@ -13,7 +13,7 @@ namespace WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters.Entities
         [Required]
         [ForeignKey("StoreEntity")]
         public int StoreId { get; set; }
-        public virtual StoreEntity StoreEntity { get; set; }
+        public virtual StoreEntity? StoreEntity { get; set; }
 
         [Required]
         public int Activity { get; set; }

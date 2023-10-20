@@ -30,6 +30,10 @@
     </Content>
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="AppData\**" CopyToPublishDirectory="PreserveNewest"/>
+	</ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ClassLibraryDomain\ClassLibraryDomain.csproj" />
   </ItemGroup>

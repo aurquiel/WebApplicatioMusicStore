@@ -13,11 +13,11 @@ namespace ClassLibraryDomain.Models
 
         public int Order { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public int StoreId { get; set; }
 
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
         public double Size { get; set; }
 

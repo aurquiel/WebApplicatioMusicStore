@@ -29,7 +29,7 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<AudioFileDto>>(false, "Error webservice obteniendo Lista de Audio del servisor, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<List<AudioFileDto>>(false, "Error webservice obteniendo Lista de Audio del servisor, Excepcion: " + ex.Message, new List<AudioFileDto>());
             }
         }
 
@@ -40,11 +40,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioDriving.AudioSaveAsync(file.FileName ,file.OpenReadStream());
-                return new GeneralAnswerDto<object>(true, $"Audio: {file.FileName}, subido exitosamente al servidor.", null);
+                return new GeneralAnswerDto<object>(true, $"Audio: {file.FileName}, subido exitosamente al servidor.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice subiendo audio: {file.FileName}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice subiendo audio: {file.FileName}, Excepcion: " + ex.Message, new object());
             }
         }
 
@@ -62,11 +62,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _audioDriving.AudioDeleteAsync(audioName);
-                return new GeneralAnswerDto<object>(true, $"Audio: {audioName} eliminado exitosamente", null);
+                return new GeneralAnswerDto<object>(true, $"Audio: {audioName} eliminado exitosamente", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando audio: {audioName}, Exception: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando audio: {audioName}, Exception: " + ex.Message, new object());
             }
         }
     }

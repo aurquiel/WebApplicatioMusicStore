@@ -29,7 +29,7 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<List<StoreDto>>(false, "Error webservice obteniendo Lista de Teindas, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<List<StoreDto>>(false, "Error webservice obteniendo Lista de Teindas, Excepcion: " + ex.Message, new List<StoreDto>());
             }
         }
 
@@ -40,11 +40,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _storeDriving.InsertAsync(_mapper.Map<Store>(storeDTO));
-                return new GeneralAnswerDto<object>(true, $"Tienda: {storeDTO.Code}, creada exitosamente.", null);
+                return new GeneralAnswerDto<object>(true, $"Tienda: {storeDTO.Code}, creada exitosamente.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice creando tienda: {storeDTO.Code}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice creando tienda: {storeDTO.Code}, Excepcion: " + ex.Message, new object());
             }
         }
 
@@ -55,11 +55,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _storeDriving.UpdateAsync(_mapper.Map<Store>(storeDTO));
-                return new GeneralAnswerDto<object>(true, $"Tienda: {storeDTO.Code}, actualizada exitosamente.", null);
+                return new GeneralAnswerDto<object>(true, $"Tienda: {storeDTO.Code}, actualizada exitosamente.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice actulizando tienda: {storeDTO.Code}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice actulizando tienda: {storeDTO.Code}, Excepcion: " + ex.Message, new object());
             }
         }
 
@@ -70,11 +70,11 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             try
             {
                 await _storeDriving.DeleteAsync(storeId);
-                return new GeneralAnswerDto<object>(true, $"Tienda id: {storeId}, eliminada exitosamente.", null);
+                return new GeneralAnswerDto<object>(true, $"Tienda id: {storeId}, eliminada exitosamente.", new object());
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando tienda id: {storeId}, Excepcion: " + ex.Message, null);
+                return new GeneralAnswerDto<object>(false, $"Error webservice eliminando tienda id: {storeId}, Excepcion: " + ex.Message, new object());
             }
         }
     }
