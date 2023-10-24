@@ -41,7 +41,7 @@ namespace WebApplicationMusicStore.DrivingAdapters.RestAdapters
             }
             catch (Exception ex)
             {
-                return new GeneralAnswerDto<UserAccessDto>(false, $"Error websrevice login usuario: {alias}, Exception: " + ex.Message, new UserAccessDto { User = new UserDto(), Token = string.Empty });
+                return new GeneralAnswerDto<UserAccessDto>(false, $"Error websrevice login usuario: {alias}, Excepcion: " + ex.Message, new UserAccessDto { User = new UserDto(), Token = string.Empty });
             }
 
         }

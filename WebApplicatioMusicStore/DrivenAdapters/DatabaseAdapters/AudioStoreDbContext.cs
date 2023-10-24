@@ -21,8 +21,8 @@ namespace WebApplicationMusicStore.DrivenAdapters.DatabaseAdapters
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AudioStore;" +
-                "Integrated Security=True;TrustServerCertificate=True");
+            //optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AudioStore;" +
+            //    "Integrated Security=True;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

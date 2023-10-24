@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -31,9 +31,11 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Content Include="AppData\**" CopyToPublishDirectory="PreserveNewest"/>
+		<Content Include="App_Data\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\ClassLibraryDomain\ClassLibraryDomain.csproj" />
   </ItemGroup>

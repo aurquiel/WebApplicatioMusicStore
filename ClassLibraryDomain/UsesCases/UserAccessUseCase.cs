@@ -25,7 +25,7 @@ namespace ClassLibraryDomain.UsesCases
 
             if(user is null)
             {
-                throw new UserLoginException(user.Alias);
+                throw new UserLoginException(alias);
             }
 
             return user;
