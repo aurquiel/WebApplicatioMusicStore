@@ -1,6 +1,7 @@
 ﻿using ClassLibraryDomain.Exceptions;
 using ClassLibraryDomain.Models;
 using ClassLibraryDomain.Ports.Driven;
+using NAudio.Wave;
 
 namespace WebApplicationMusicStore.DrivenAdapters.FileManager
 {
@@ -73,23 +74,34 @@ namespace WebApplicationMusicStore.DrivenAdapters.FileManager
 
         public async Task AudioSaveAsync(string audioName, Stream file)
         {
-            if (SongAlreaadyExits(audioName))
+            try
             {
-                throw new AudioNotFoundException(audioName);
-            }
+                if (SongAlreaadyExits(audioName))
+                {
+                    throw new AudioNotFoundException(audioName);
+                }
 
-            var dirSize = DirSize(new DirectoryInfo(FOLDER_AUDIO));
-            if (dirSize + file.Length > MAX_SIZE_BYTES)
+                var a = new Mp3FileReader(file);
+                var b = a.TotalTime;
+
+                var dirSize = DirSize(new DirectoryInfo(FOLDER_AUDIO));
+                if (dirSize + file.Length > MAX_SIZE_BYTES)
+                {
+                    throw new AudioMaxCapacityException(MAX_SIZE_BYTES / (1024.0 * 1024.0));
+                }
+
+                string fileRoute = Path.Combine(FOLDER_AUDIO, $"{audioName}");
+
+                using (FileStream fs = File.Create(fileRoute))
+                {
+                    await file.CopyToAsync(fs);
+                    fs.Close();
+                }
+
+            } 
+            catch
             {
-                throw new AudioMaxCapacityException(MAX_SIZE_BYTES / (1024.0 * 1024.0));
-            }
-
-            string fileRoute = Path.Combine(FOLDER_AUDIO, $"{audioName}");
-
-            using (FileStream fs = File.Create(fileRoute))
-            {
-                await file.CopyToAsync(fs);
-                fs.Close();
+                throw;
             }
         }
 

@@ -8,13 +8,27 @@ namespace WebApplicationMusicStore.DrivenAdapters.FileManager
     {
         public AudioFile GetDetailsOfAudioFile(string filePath)
         {
-            return new AudioFile
+            try
             {
-                Name = Path.GetFileName(filePath),
-                Path = filePath,
-                Size = Math.Round(new FileInfo(filePath).Length / (1024.0 * 1024.0), 2),
-                Duration = StripMilliseconds(new AudioFileReader(filePath).TotalTime)
-            };
+                return new AudioFile
+                {
+                    Name = Path.GetFileName(filePath),
+                    Path = filePath,
+                    Size = Math.Round(new FileInfo(filePath).Length / (1024.0 * 1024.0), 2),
+                    Duration = StripMilliseconds(new AudioFileReader(filePath).TotalTime)
+                };
+            }
+            catch
+            {
+                return new AudioFile
+                {
+                    Name = Path.GetFileName(filePath),
+                    Path = filePath,
+                    Size = Math.Round(new FileInfo(filePath).Length / (1024.0 * 1024.0), 2),
+                    Duration = StripMilliseconds(new TimeSpan(0, 0, 0))
+                };
+            }
+            
         }
 
         private TimeSpan StripMilliseconds(TimeSpan time)
